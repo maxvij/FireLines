@@ -2,7 +2,19 @@ $black : #000
 $white : #FFF
 $border-color : #ededed
 $accent : #c80000
+$accent-opaque : rgba(200, 0, 0, 0.4)
 $accent-light : #d71016
+$background-color : #dfdfdf
+$map-background-color : #adadad
+
+
+@import url('https://fonts.googleapis.com/css?family=Lato:300,400,700,900')
 
 =transition($element)
   transition: $element .3s ease-in-out
+
+=box-shadow($strength)
+  @if $strength == 'heavy'
+    box-shadow: 1px 1px 5px rgba(0,0,0.4)
+  @else
+    box-shadow: 1px 1px 3px rgba(0,0,0,0.15)

@@ -3,3 +3,19 @@
  */
 h1, h2, h3
   margin: 0 0 15px
+
+body, *
+  font-family: 'Lato', sans-serif
+body
+  padding-top: 80px
+  margin: 0
+
+a, a:active, a:link, a:visited, a:hover
+  text-decoration: none
+a, a:active, a:link, a:visited
+  color: $accent
+  +transition(all)
+a:hover, a:focus
+  color: $accent-light
+  outline: none
+  +transition(all)

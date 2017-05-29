@@ -10,7 +10,7 @@
 <div class="container-fluid">
     <?php include('partials/header.php'); ?>
     <div class="row">
-        <div class="col-md-12 col-lg-4 col-xl-3">
+        <div class="col-md-12 col-lg-4">
             <div id="sidebar">
                 <div class="row">
                     <div class="col-12">
@@ -37,19 +37,18 @@
                         </ul>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-12">
-                        <h2>Filter options</h2>
-                    </div>
-                    <div class="col-12 col-md-4">
-                        <h3>Priority</h3>
-                    </div>
-                </div>
+<!--                <div class="row">-->
+<!--                    <div class="col-12">-->
+<!--                        <h2>Filter options</h2>-->
+<!--                    </div>-->
+<!--                    <div class="col-12 col-md-4">-->
+<!--                        <h3>Priority</h3>-->
+<!--                    </div>-->
+<!--                </div>-->
             </div>
         </div>
-        <div class="col-12 col-md-12 col-lg-8 col-xl-9">
+        <div class="col-12 col-md-12 col-lg-8">
             <div id="map">
-                Map
             </div>
         </div>
     </div>

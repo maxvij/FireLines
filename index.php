@@ -43,12 +43,8 @@
         </div>
         <div class="col-12 col-md-12 col-lg-8">
             <div id="map">
-                <div class="row">
-                    <div class="col-12 col-md-8">
-                        <div id="map-overlay">
-                            <object id="map-svg" type="image/svg+xml" data="src/img/nl.svg"></object>
-                        </div>
-                    </div>
+                <div id="map-overlay">
+                    <object id="map-svg" type="image/svg+xml" data="src/img/nl.svg"></object>
                 </div>
             </div>
         </div>

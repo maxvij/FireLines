@@ -1,6 +1,6 @@
 <div class="header-wrapper">
     <div class="row">
-        <div class="col-xs-12 col-sm-4">
+        <div class="col-12 col-md-5">
             <nav>
                 <ul>
                     <li class="active">
@@ -15,7 +15,7 @@
                 </ul>
             </nav>
         </div>
-        <div class="col-xs-12 col-sm-4">
+        <div class="col-12 col-md-2">
             <div class="logo">
                 <h1>FireLines</h1>
             </div>

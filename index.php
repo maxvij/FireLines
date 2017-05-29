@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="src/css/vendor.css" media="all"/>
     <link rel="stylesheet" href="src/css/style.css" media="all"/>
     <script type="text/javascript" src="src/js/vivus.min.js"></script>
+    <script type="text/javascript" src="src/js/svg.min.js"></script>
 </head>
 <body>
 <div class="container-fluid">
@@ -43,8 +44,10 @@
         <div class="col-12 col-md-12 col-lg-8">
             <div id="map">
                 <div class="row">
-                    <div class="col-12 col-md-8 offset-md-2">
-                        <object id="map-svg" type="image/svg+xml" data="src/img/nl.svg"></object>
+                    <div class="col-12 col-md-8">
+                        <div id="map-overlay">
+                            <object id="map-svg" type="image/svg+xml" data="src/img/nl.svg"></object>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -52,16 +55,67 @@
     </div>
 </div>
 
+<!--suppress BadExpressionStatementJS -->
 <script type="text/javascript">
     var options = {
         type: 'oneByOne',
-        duration: 300,
+        duration: 50,
         animTimingFunction: Vivus.EASE,
         pathTimingFunction: Vivus.EASE,
         reverseStack: true,
         start: 'autostart'
     };
     var vivus = new Vivus('map-svg', options);
+    var overlay = SVG('map-overlay');
+
+    var coordinates = [
+        {
+            prio: 1,
+            x: 500,
+            y: 130
+        },
+        {
+            prio: 2,
+            x: 400,
+            y: 140
+        },
+        {
+            prio: 2,
+            x: 340,
+            y: 256
+        },
+        {
+            prio: 1,
+            x: 300,
+            y: 200
+        },
+        {
+            prio: 1,
+            x: 420,
+            y: 340
+        }
+    ];
+
+    // draw pink square
+    var index = 0;
+    var firstX = coordinates[0].x + coordinates[0].prio * 5;
+    var firstY = coordinates[0].y + coordinates[0].prio * 5;
+    coordinates.map(location => {
+        overlay.circle(location.prio * 10)
+            .attr({'opacity': 0})
+            .move(location.x, location.y)
+            .animate(300, '<>', 800 + (index % 2 === 0 ? index * 300 : index * 250))
+            .attr({'opacity': 1})
+            .attr({fill: '#000'});
+        overlay.line(firstX, firstY, location.x + location.prio * 5, location.y + location.prio * 5)
+            .attr({'opacity': 0})
+            .animate(300, '<>', 800 + (index * 200))
+            .attr({'opacity': 1})
+            .attr({stroke: '#000'});
+        firstX = location.x + location.prio * 5;
+        firstY = location.y + location.prio * 5;
+        index++;
+    })
 </script>
 </body>
 </html>

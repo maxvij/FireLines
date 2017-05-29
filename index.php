@@ -10,12 +10,44 @@
 <div class="container-fluid">
     <?php include('partials/header.php'); ?>
     <div class="row">
-        <div class="col-xs-12 col-sm-4 col-lg-3">
+        <div class="col-md-12 col-lg-4 col-xl-3">
             <div id="sidebar">
-                
+                <div class="row">
+                    <div class="col-12">
+                        <h2>Latest reports</h2>
+                        <ul class="list">
+                            <li>
+                                <div class="label prio-1"></div>
+                                <p class="name">Huisbrand</p>
+                                <p class="location">Makkinga</p>
+                                <p class="time">10:56</p>
+                            </li>
+                            <li>
+                                <div class="label prio-2"></div>
+                                <p class="name">Brand door kortsluiting</p>
+                                <p class="location">Utrecht</p>
+                                <p class="time">10:56</p>
+                            </li>
+                            <li>
+                                <div class="label prio-3"></div>
+                                <p class="name">Kat in boom</p>
+                                <p class="location">Den Bosch</p>
+                                <p class="time">10:53</p>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <h2>Filter options</h2>
+                    </div>
+                    <div class="col-12 col-md-4">
+                        <h3>Priority</h3>
+                    </div>
+                </div>
             </div>
         </div>
-        <div class="col-xs-12 col-sm-8 col-lg-9">
+        <div class="col-12 col-md-12 col-lg-8 col-xl-9">
             <div id="map">
                 Map
             </div>

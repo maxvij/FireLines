@@ -5,6 +5,7 @@
     <title>FireLines | Concept</title>
     <link rel="stylesheet" href="src/css/vendor.css" media="all"/>
     <link rel="stylesheet" href="src/css/style.css" media="all"/>
+    <script type="text/javascript" src="src/js/vivus.min.js"></script>
 </head>
 <body>
 <div class="container-fluid">
@@ -37,21 +38,30 @@
                         </ul>
                     </div>
                 </div>
-<!--                <div class="row">-->
-<!--                    <div class="col-12">-->
-<!--                        <h2>Filter options</h2>-->
-<!--                    </div>-->
-<!--                    <div class="col-12 col-md-4">-->
-<!--                        <h3>Priority</h3>-->
-<!--                    </div>-->
-<!--                </div>-->
             </div>
         </div>
         <div class="col-12 col-md-12 col-lg-8">
             <div id="map">
+                <div class="row">
+                    <div class="col-12 col-md-8 offset-md-2">
+                        <object id="map-svg" type="image/svg+xml" data="src/img/nl.svg"></object>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </div>
+
+<script type="text/javascript">
+    var options = {
+        type: 'oneByOne',
+        duration: 300,
+        animTimingFunction: Vivus.EASE,
+        pathTimingFunction: Vivus.EASE,
+        reverseStack: true,
+        start: 'autostart'
+    };
+    var vivus = new Vivus('map-svg', options);
+</script>
 </body>
 </html>

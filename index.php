@@ -56,6 +56,7 @@
 
 <!--suppress BadExpressionStatementJS -->
 <script type="text/javascript">
+	var coordinates = [];
 
 	function toRelativeCoordinate(axis, value) {
 		// x-axis
@@ -120,7 +121,8 @@
                         lastid = obj.ID;
                         return rObj;
                     });
-                    console.log(newCoordinates);
+                    coordinates = coordinates.concat(newCoordinates);
+                    console.log(coordinates);
                     updateGraph(newCoordinates);
 				}
 			}
@@ -150,6 +152,11 @@
         var index = 0;
         var firstX = data[0].x + data[0].prio * 5;
         var firstY = data[0].y + data[0].prio * 5;
+        if(data.length <= 1) {
+            var i = coordinates.length;
+            var firstX = coordinates[i - 1].x + coordinates[i - 1].prio * 5;
+            var firstY = coordinates[i - 1].x + coordinates[i - 1].prio * 5;
+        }
         data.map(location => {
             overlay.circle(location.prio * 10)
             .attr({'opacity': 0})

@@ -9,12 +9,16 @@ if (!$conn) {
 
 mysqli_select_db($conn,  'firelines');
 $last_id = $_GET['lastid'];
-$query = "SELECT * FROM Nederland WHERE ID >= " . $last_id;
+$query = "SELECT * FROM Nederland WHERE ID > " . $last_id;
 $result = mysqli_query($conn, $query);
 
 $rows = array();
 while($r = mysqli_fetch_assoc($result)) {
     $rows[] = $r;
 }
-print json_encode($rows);
+if(sizeof($rows) > 0) {
+    print json_encode($rows);
+} else {
+    print 'UP-TO-DATE';
+}
 ?>

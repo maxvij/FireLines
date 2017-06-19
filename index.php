@@ -75,6 +75,26 @@
 		return result;
 	}
 
+    function isInt(value) {
+        return !isNaN(value) && (function(x) { return (x | 0) === x; })(parseFloat(value))
+    }
+
+	function parsePriorityFromTitle(title) {
+	    var lowerCaseTitle = title.toLowerCase();
+	    var prioFound = lowerCaseTitle.indexOf('prio');
+	    if(prioFound !== -1) {
+	        var firstCharacter = lowerCaseTitle.charAt(prioFound);
+	        var secondCharacter = lowerCaseTitle.charAt(prioFound);
+	        if(isInt(firstCharacter)) {
+                return parseInt(firstCharacter);
+            }
+			else if(isInt(secondCharacter)) {
+			    return parseInt(secondCharacter);
+			}
+		}
+		return 3;
+	}
+
 	var data;
 	var lastid = 0;
 	function updateData() {
@@ -88,17 +108,21 @@
         }
         xmlhttp.onreadystatechange = function () {
             if (this.readyState === 4 && this.status === 200) {
-                data = JSON.parse(this.response);
-                var newCoordinates = [];
-                newCoordinates = data.map(function(obj) {
-                    var rObj = {x: '', y: '', prio: ''};
-                    rObj.x = toRelativeCoordinate('x', parseInt(obj.Latitude));
-                    rObj.y = toRelativeCoordinate('y', parseInt(obj.Longitude));
-                    rObj.prio = 2;
-                    lastid = obj.ID;
-                    return rObj;
-                });
-            	updateGraph(newCoordinates);
+                if(this.responseText !== 'UP-TO-DATE') {
+                    data = JSON.parse(this.response);
+                    var newCoordinates = [];
+                    newCoordinates = data.map(function(obj) {
+                        var rObj = {x: '', y: '', prio: '', title: ''};
+                        rObj.x = toRelativeCoordinate('x', parseInt(obj.Latitude));
+                        rObj.y = toRelativeCoordinate('y', parseInt(obj.Longitude));
+                        rObj.prio = parsePriorityFromTitle(obj.Title);
+                        rObj.title = obj.Title;
+                        lastid = obj.ID;
+                        return rObj;
+                    });
+                    console.log(newCoordinates);
+                    updateGraph(newCoordinates);
+				}
 			}
         };
         xmlhttp.open("GET", "get_coordinates.php?lastid="+lastid);
@@ -107,7 +131,7 @@
 
     setInterval(function() {
 	    updateData()
-	}, 5000);
+	}, 1000);
 
 
     var vivus = new Vivus('map-svg', options);

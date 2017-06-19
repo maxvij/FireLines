@@ -76,6 +76,7 @@
 	}
 
 	var data;
+	var lastid = 0;
 	function updateData() {
         var xmlhttp;
         if (window.XMLHttpRequest) {
@@ -94,12 +95,13 @@
                     rObj.x = toRelativeCoordinate('x', parseInt(obj.Latitude));
                     rObj.y = toRelativeCoordinate('y', parseInt(obj.Longitude));
                     rObj.prio = 2;
+                    lastid = obj.ID;
                     return rObj;
                 });
             	updateGraph(newCoordinates);
 			}
         };
-        xmlhttp.open("GET", "get_coordinates.php");
+        xmlhttp.open("GET", "get_coordinates.php?lastid="+lastid);
         xmlhttp.send();
     }
 
@@ -107,18 +109,20 @@
 	    updateData()
 	}, 5000);
 
-	function updateGraph(data) {
-        var options = {
-            type: 'oneByOne',
-            duration: 50,
-            animTimingFunction: Vivus.EASE,
-            pathTimingFunction: Vivus.EASE,
-            reverseStack: true,
-            start: 'autostart'
-        };
-        var vivus = new Vivus('map-svg', options);
-        var overlay = SVG('map-overlay');
 
+    var vivus = new Vivus('map-svg', options);
+    var overlay = SVG('map-overlay');
+
+    var options = {
+        type: 'oneByOne',
+        duration: 50,
+        animTimingFunction: Vivus.EASE,
+        pathTimingFunction: Vivus.EASE,
+        reverseStack: true,
+        start: 'autostart'
+    };
+
+	function updateGraph(data) {
         var index = 0;
         var firstX = data[0].x + data[0].prio * 5;
         var firstY = data[0].y + data[0].prio * 5;

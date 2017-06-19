@@ -8,7 +8,8 @@ if (!$conn) {
 }
 
 mysqli_select_db($conn,  'firelines');
-$query = "SELECT * FROM Nederland";
+$last_id = $_GET['lastid'];
+$query = "SELECT * FROM Nederland WHERE ID >= " . $last_id;
 $result = mysqli_query($conn, $query);
 
 $rows = array();

@@ -56,6 +56,26 @@
 
 <!--suppress BadExpressionStatementJS -->
 <script type="text/javascript">
+
+	function toRelativeCoordinate(axis, value) {
+		// x-axis
+        var width = 600;
+        var bottomLat = 13557;
+        var topLat = 278013;
+		// y-axis
+        var height = 675;
+        var bottomLang = 615084;
+        var topLang = 306877;
+        var result;
+	    if (axis === 'x') {
+	        result = (value - bottomLat) * ((20 - width) / (bottomLat - topLat));
+		} else {
+	        result = (value - bottomLang) * ((20 - height) / (bottomLang - topLang));
+		}
+		return result;
+	}
+
+	var data;
 	function updateData() {
         var xmlhttp;
         if (window.XMLHttpRequest) {
@@ -65,65 +85,45 @@
             // code for IE6, IE5
             xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
         }
-		xmlhttp.onreadystatechange = function() {
-			if (this.readyState === 4 && this.status === 200) {
-			    var data = JSON.parse(this.response);
-			    console.log(data);
+        xmlhttp.onreadystatechange = function () {
+            if (this.readyState === 4 && this.status === 200) {
+                data = JSON.parse(this.response);
+                var newCoordinates = [];
+                newCoordinates = data.map(function(obj) {
+                    var rObj = {x: '', y: '', prio: ''};
+                    rObj.x = toRelativeCoordinate('x', parseInt(obj.Latitude));
+                    rObj.y = toRelativeCoordinate('y', parseInt(obj.Longitude));
+                    rObj.prio = 2;
+                    return rObj;
+                });
+            	updateGraph(newCoordinates);
 			}
-		};
-		xmlhttp.open("GET","get_coordinates.php");
-		xmlhttp.send();
-	}
+        };
+        xmlhttp.open("GET", "get_coordinates.php");
+        xmlhttp.send();
+    }
 
-	setInterval(function() {
+    setInterval(function() {
 	    updateData()
 	}, 5000);
 
-    var options = {
-        type: 'oneByOne',
-        duration: 50,
-        animTimingFunction: Vivus.EASE,
-        pathTimingFunction: Vivus.EASE,
-        reverseStack: true,
-        start: 'autostart'
-    };
-    var vivus = new Vivus('map-svg', options);
-    var overlay = SVG('map-overlay');
+	function updateGraph(data) {
+        var options = {
+            type: 'oneByOne',
+            duration: 50,
+            animTimingFunction: Vivus.EASE,
+            pathTimingFunction: Vivus.EASE,
+            reverseStack: true,
+            start: 'autostart'
+        };
+        var vivus = new Vivus('map-svg', options);
+        var overlay = SVG('map-overlay');
 
-    var coordinates = [
-        {
-            prio: 1,
-            x: 500,
-            y: 130
-        },
-        {
-            prio: 2,
-            x: 400,
-            y: 140
-        },
-        {
-            prio: 2,
-            x: 340,
-            y: 256
-        },
-        {
-            prio: 1,
-            x: 300,
-            y: 200
-        },
-        {
-            prio: 1,
-            x: 420,
-            y: 340
-        }
-    ];
-
-    // draw pink square
-    var index = 0;
-    var firstX = coordinates[0].x + coordinates[0].prio * 5;
-    var firstY = coordinates[0].y + coordinates[0].prio * 5;
-    coordinates.map(location => {
-        overlay.circle(location.prio * 10)
+        var index = 0;
+        var firstX = data[0].x + data[0].prio * 5;
+        var firstY = data[0].y + data[0].prio * 5;
+        data.map(location => {
+            overlay.circle(location.prio * 10)
             .attr({'opacity': 0})
             .move(location.x, location.y)
             .animate(300, '<>', 800 + (index % 2 === 0 ? index * 300 : index * 250))
@@ -138,6 +138,7 @@
         firstY = location.y + location.prio * 5;
         index++;
     })
+	}
 </script>
 </body>
 </html>

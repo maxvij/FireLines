@@ -1,4 +1,7 @@
 .idea
 .sass-cache
-src/css
+src/css/*
+!src/css/vendor.css
+!src/css/bootstrap-grid.min.css
+!src/css/ionicons.min.css
 .DS_Store

@@ -46,6 +46,9 @@
                 <div id="map-overlay">
                     <object id="map-svg" type="image/svg+xml" data="src/img/nl.svg"></object>
                 </div>
+				<div id="data">
+
+				</div>
             </div>
         </div>
     </div>
@@ -53,6 +56,29 @@
 
 <!--suppress BadExpressionStatementJS -->
 <script type="text/javascript">
+	function updateData() {
+        var xmlhttp;
+        if (window.XMLHttpRequest) {
+            // code for IE7+, Firefox, Chrome, Opera, Safari
+            xmlhttp = new XMLHttpRequest();
+        } else {
+            // code for IE6, IE5
+            xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+		xmlhttp.onreadystatechange = function() {
+			if (this.readyState === 4 && this.status === 200) {
+			    var data = JSON.parse(this.response);
+			    console.log(data);
+			}
+		};
+		xmlhttp.open("GET","get_coordinates.php");
+		xmlhttp.send();
+	}
+
+	setInterval(function() {
+	    updateData()
+	}, 5000);
+
     var options = {
         type: 'oneByOne',
         duration: 50,

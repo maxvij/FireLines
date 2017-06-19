@@ -85,17 +85,28 @@
 	function parsePriorityFromTitle(title) {
 	    var lowerCaseTitle = title.toLowerCase();
 	    var prioFound = lowerCaseTitle.indexOf('prio');
+	    var pFound = lowerCaseTitle.indexOf('p');
 	    if(prioFound !== -1) {
-	        var firstCharacter = lowerCaseTitle.charAt(prioFound);
-	        var secondCharacter = lowerCaseTitle.charAt(prioFound);
-	        if(isInt(firstCharacter)) {
-                return parseInt(firstCharacter);
+	        var a = lowerCaseTitle.charAt(prioFound + 4);
+	        var b = lowerCaseTitle.charAt(prioFound + 5);
+	        if(isInt(a)) {
+                return parseInt(a);
             }
-			else if(isInt(secondCharacter)) {
-			    return parseInt(secondCharacter);
+			else if(isInt(b)) {
+			    return parseInt(b);
 			}
+		} else if (pFound !== -1) {
+			var c = lowerCaseTitle.charAt(pFound + 1);
+            var d = lowerCaseTitle.charAt(pFound + 2);
+            if(isInt(c)) {
+                return parseInt(c);
+            }
+            else if(isInt(d)) {
+                return parseInt(d);
+            }
+		} else {
+	        return 3;
 		}
-		return 3;
 	}
 
 	var data;
@@ -123,6 +134,7 @@
                         rObj.prio = parsePriorityFromTitle(obj.Title);
                         rObj.title = obj.Title;
                         lastid = obj.ID;
+                        console.log(obj.Title, parsePriorityFromTitle(obj.Title));
                         return rObj;
                     });
                     coordinates = coordinates.concat(newCoordinates);

@@ -58,6 +58,7 @@
 <script type="text/javascript">
 	var coordinates = [];
 
+	// Map X-RD and Y-RD (Rijksdriehoeksmeting) to the SVG map of the Netherlands
 	function toRelativeCoordinate(axis, value) {
 		// x-axis
         var width = 600;
@@ -69,9 +70,9 @@
         var topLang = 306877;
         var result;
 	    if (axis === 'x') {
-	        result = (value - bottomLat) * ((20 - width) / (bottomLat - topLat));
+	        result = (value - bottomLat) * ((10 - width) / (bottomLat - topLat));
 		} else {
-	        result = (value - bottomLang) * ((20 - height) / (bottomLang - topLang));
+	        result = (value - bottomLang) * ((10 - height) / (bottomLang - topLang));
 		}
 		return result;
 	}
@@ -80,6 +81,7 @@
         return !isNaN(value) && (function(x) { return (x | 0) === x; })(parseFloat(value))
     }
 
+    // Parse priority value from p2000 report title
 	function parsePriorityFromTitle(title) {
 	    var lowerCaseTitle = title.toLowerCase();
 	    var prioFound = lowerCaseTitle.indexOf('prio');
@@ -98,6 +100,8 @@
 
 	var data;
 	var lastid = 0;
+
+	// Receive data via AJAX call from Database
 	function updateData() {
         var xmlhttp;
         if (window.XMLHttpRequest) {
@@ -131,11 +135,12 @@
         xmlhttp.send();
     }
 
+    // Update graph every n seconds
     setInterval(function() {
 	    updateData()
 	}, 1000);
 
-
+	// SVG canvas options
     var vivus = new Vivus('map-svg', options);
     var overlay = SVG('map-overlay');
 
@@ -149,28 +154,33 @@
     };
 
 	function updateGraph(data) {
+		// Update Graph lines
         var index = 0;
-        var firstX = data[0].x + data[0].prio * 5;
-        var firstY = data[0].y + data[0].prio * 5;
+        var firstX = data[0].x + data[0].prio * 2.5;
+        var firstY = data[0].y + data[0].prio * 2.5;
         if(data.length <= 1) {
+            // If we only have one new coordinate, grab the last coordinate from the coordinate list
+			// and use this as the first coordinate to draw a line from
             var i = coordinates.length;
-            var firstX = coordinates[i - 1].x + coordinates[i - 1].prio * 5;
-            var firstY = coordinates[i - 1].x + coordinates[i - 1].prio * 5;
+            var firstX = coordinates[i - 1].x + coordinates[i - 1].prio * 2.5;
+            var firstY = coordinates[i - 1].x + coordinates[i - 1].prio * 2.5;
         }
         data.map(location => {
-            overlay.circle(location.prio * 10)
+            // Draw a circle with a radius relative to the priority
+            overlay.circle(location.prio * 5)
             .attr({'opacity': 0})
             .move(location.x, location.y)
             .animate(300, '<>', 800 + (index % 2 === 0 ? index * 300 : index * 250))
             .attr({'opacity': 1})
             .attr({fill: '#000'});
-        overlay.line(firstX, firstY, location.x + location.prio * 5, location.y + location.prio * 5)
+            // And a line from previous circle to new circle
+        overlay.line(firstX, firstY, location.x + location.prio * 2.5, location.y + location.prio * 2.5)
             .attr({'opacity': 0})
             .animate(300, '<>', 800 + (index * 200))
             .attr({'opacity': 1})
             .attr({stroke: '#000'});
-        firstX = location.x + location.prio * 5;
-        firstY = location.y + location.prio * 5;
+        firstX = location.x + location.prio * 2.5;
+        firstY = location.y + location.prio * 2.5;
         index++;
     })
 	}

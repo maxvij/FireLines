@@ -97,6 +97,7 @@
                         rObj.title = obj.Title;
                         rObj.prio = obj.prio;
                         rObj.province = obj.Province;
+                        rObj.time = obj.Pubdate.substr(obj.Pubdate.length - 8);
                         lastid = obj.ID;
                         return rObj;
                     });
@@ -166,7 +167,11 @@
         sortedCoordinates = coordinates.reverse();
         sortedCoordinates.map(location => {
             var prioClass = 'label prio-' + location.prio;
-            element = '<li>' + '<div class=\'' + prioClass + '\'></div><p class=\'name\'>' + location.title + '</p><p class=\'location\'>' + location.province + '</p></li>';
+            element = '<li>' + '<div class=\'' + prioClass + '\'></div>' +
+				'<p class=\'name\'>' + location.title + '</p>' +
+				'<p class=\'location\'>' + location.province + '</p>' +
+				'<p class=\'time\'>' + location.time + '</p>' +
+				'</li>';
         	innerList = innerList + ' ' + element;
         	return element;
     		});

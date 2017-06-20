@@ -77,38 +77,6 @@
 		return result;
 	}
 
-    function isInt(value) {
-        return !isNaN(value) && (function(x) { return (x | 0) === x; })(parseFloat(value))
-    }
-
-    // Parse priority value from p2000 report title
-	function parsePriorityFromTitle(title) {
-	    var lowerCaseTitle = title.toLowerCase();
-	    var prioFound = lowerCaseTitle.indexOf('prio');
-	    var pFound = lowerCaseTitle.indexOf('p');
-	    if(prioFound !== -1) {
-	        var a = lowerCaseTitle.charAt(prioFound + 4);
-	        var b = lowerCaseTitle.charAt(prioFound + 5);
-	        if(isInt(a)) {
-                return parseInt(a);
-            }
-			else if(isInt(b)) {
-			    return parseInt(b);
-			}
-		} else if (pFound !== -1) {
-			var c = lowerCaseTitle.charAt(pFound + 1);
-            var d = lowerCaseTitle.charAt(pFound + 2);
-            if(isInt(c)) {
-                return parseInt(c);
-            }
-            else if(isInt(d)) {
-                return parseInt(d);
-            }
-		} else {
-	        return 2;
-		}
-	}
-
 	var data;
 	var lastid = 0;
 
@@ -128,11 +96,11 @@
                     data = JSON.parse(this.response);
                     var newCoordinates = [];
                     newCoordinates = data.map(function(obj) {
-                        var rObj = {x: '', y: '', prio: '', title: ''};
+                        var rObj = {};
                         rObj.x = toRelativeCoordinate('x', parseInt(obj.rdx));
                         rObj.y = toRelativeCoordinate('y', parseInt(obj.rdy));
-                        rObj.prio = parsePriorityFromTitle(obj.Title);
                         rObj.title = obj.Title;
+                        rObj.prio = obj.prio;
                         lastid = obj.ID;
                         return rObj;
                     });
@@ -167,31 +135,35 @@
 	function updateGraph(data) {
 		// Update Graph lines
         var index = 0;
-        var firstX = data[0].x + data[0].prio * 2.5;
-        var firstY = data[0].y + data[0].prio * 2.5;
+        var prioRadius = 20;
+        var firstX = data[0].x + ((10/data[0].prio) / 2);
+        var firstY = data[0].y + ((10/data[0].prio) / 2);
         if(data.length <= 1) {
             // If we only have one new coordinate, grab the last coordinate from the coordinate list
 			// and use this as the first coordinate to draw a line from
+			console.log('only one new coordinate');
             var i = coordinates.length;
-            var firstX = coordinates[i - 1].x + coordinates[i - 1].prio * 2.5;
-            var firstY = coordinates[i - 1].x + coordinates[i - 1].prio * 2.5;
+            console.log('coordinates length: ', i);
+			firstX = coordinates[i - 1].x + ((10/coordinates[i - 1].prio) / 2);
+            console.log('last coordinate: ', coordinates[i - 1]);
+			firstY = coordinates[i - 1].x + ((10/coordinates[i - 1].prio) / 2);
         }
         data.map(location => {
             // Draw a circle with a radius relative to the priority
-            overlay.circle(location.prio * 5)
+            overlay.circle(prioRadius/location.prio)
             .attr({'opacity': 0})
             .move(location.x, location.y)
             .animate(300, '<>', 800 + (index % 2 === 0 ? index * 300 : index * 250))
             .attr({'opacity': 1})
             .attr({fill: '#000'});
             // And a line from previous circle to new circle
-        overlay.line(firstX, firstY, location.x + location.prio * 2.5, location.y + location.prio * 2.5)
+        overlay.line(firstX, firstY, location.x + ((prioRadius/location.prio) / 2), location.y + ((prioRadius/location.prio) / 2))
             .attr({'opacity': 0})
             .animate(300, '<>', 800 + (index * 200))
             .attr({'opacity': 1})
             .attr({stroke: '#000'});
-        firstX = location.x + location.prio * 2.5;
-        firstY = location.y + location.prio * 2.5;
+        firstX = location.x + ((prioRadius/location.prio) / 2);
+        firstY = location.y + ((prioRadius/location.prio) / 2);
         index++;
     })
 	}

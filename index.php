@@ -61,8 +61,8 @@
 	// Map X-RD and Y-RD (Rijksdriehoeksmeting) to the SVG map of the Netherlands
 	function toRelativeCoordinate(axis, value) {
 		// x-axis
-        var width = 600;
-        var bottomLat = 13557;
+        var width = 580;
+        var bottomLat = 8257;
         var topLat = 278013;
 		// y-axis
         var height = 675;
@@ -70,11 +70,21 @@
         var topLang = 306877;
         var result;
 	    if (axis === 'x') {
-	        result = (value - bottomLat) * ((30 - width) / (bottomLat - topLat));
+	        result = (value - bottomLat) * ((0 - width) / (bottomLat - topLat));
 		} else {
-	        result = (value - bottomLang) * ((10 - height) / (bottomLang - topLang));
+	        result = (value - bottomLang) * ((0 - height) / (bottomLang - topLang));
 		}
 		return result;
+	}
+
+	function getClassForPrio(prio) {
+		if(prio == 2) {
+			return 'prio-2';
+		} else if (prio == 3) {
+			return 'prio-3';
+		} else {
+			return 'prio-1';
+		}
 	}
 
 	var data;
@@ -93,6 +103,8 @@
         xmlhttp.onreadystatechange = function () {
             if (this.readyState === 4 && this.status === 200) {
                 if(this.responseText !== 'UP-TO-DATE') {
+                    var audio = new Audio('src/sound/brand.m4a');
+                    audio.play();
                     data = JSON.parse(this.response);
                     var newCoordinates = [];
                     newCoordinates = data.map(function(obj) {
@@ -105,7 +117,6 @@
                         return rObj;
                     });
                     coordinates = coordinates.concat(newCoordinates);
-                    console.log(coordinates);
                     updateGraph(newCoordinates);
 				}
 			}
@@ -135,35 +146,30 @@
 	function updateGraph(data) {
 		// Update Graph lines
         var index = 0;
-        var prioRadius = 20;
-        var firstX = data[0].x + ((10/data[0].prio) / 2);
-        var firstY = data[0].y + ((10/data[0].prio) / 2);
-        if(data.length <= 1) {
-            // If we only have one new coordinate, grab the last coordinate from the coordinate list
-			// and use this as the first coordinate to draw a line from
-			console.log('only one new coordinate');
-            var i = coordinates.length;
-            console.log('coordinates length: ', i);
-			firstX = coordinates[i - 1].x + ((10/coordinates[i - 1].prio) / 2);
-            console.log('last coordinate: ', coordinates[i - 1]);
-			firstY = coordinates[i - 1].x + ((10/coordinates[i - 1].prio) / 2);
-        }
+        var prioRadius = 30;
+        var i = coordinates.length;
+        if(index = 1) {
+            firstX = coordinates[0].x;
+            firstY = coordinates[0].y;
+		} else {
+			var firstX = coordinates[i - 2].x;
+			var firstY = coordinates[i - 2].y;
+		}
         data.map(location => {
             // Draw a circle with a radius relative to the priority
             overlay.circle(prioRadius/location.prio)
             .attr({'opacity': 0})
-            .move(location.x, location.y)
-            .animate(300, '<>', 800 + (index % 2 === 0 ? index * 300 : index * 250))
-            .attr({'opacity': 1})
-            .attr({fill: '#000'});
-            // And a line from previous circle to new circle
-        overlay.line(firstX, firstY, location.x + ((prioRadius/location.prio) / 2), location.y + ((prioRadius/location.prio) / 2))
-            .attr({'opacity': 0})
+            .move(location.x - ((prioRadius/location.prio) / 2), location.y - ((prioRadius/location.prio) / 2))
+			.attr({'class': getClassForPrio(location.prio)})
             .animate(300, '<>', 800 + (index * 200))
             .attr({'opacity': 1})
-            .attr({stroke: '#000'});
-        firstX = location.x + ((prioRadius/location.prio) / 2);
-        firstY = location.y + ((prioRadius/location.prio) / 2);
+            // And a line from previous circle to new circle
+        overlay.line(firstX, firstY, location.x, location.y)
+            .attr({'opacity': 0})
+            .animate(300, '<>', 800 + (index * 200))
+            .attr({'opacity': 1});
+        firstX = location.x;
+        firstY = location.y;
         index++;
     })
 	}

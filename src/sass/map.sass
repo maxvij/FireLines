@@ -14,18 +14,27 @@
   #map-overlay, #map-svg, #map-svg svg, #map-svg + svg
     width: 600px
     height: 675px
+    overflow: visible
   #map-svg
+    opacity: 0.5 !important
     svg
       path
-        stroke: #000 !important
+        stroke: #ededed !important
         fill: transparent !important
         stroke-width: 3px !important
-      circle
-        fill: rgba(147, 0, 14, 0.3) !important
     + svg
       position: absolute
       top: 0
       left: 0
+      opacity: 1 !important
+      line
+        stroke: #000
+      circle
+        fill: rgba(147, 0, 14, 0.5)
+        &.prio-2
+          fill: rgba(255, 165, 0, 0.5)
+        &.prio-3
+          fill: rgba(0, 76, 121, 0.51)
   #map-overlay
     position: absolute
     left: 50%

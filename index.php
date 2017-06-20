@@ -70,7 +70,7 @@
         var topLang = 306877;
         var result;
 	    if (axis === 'x') {
-	        result = (value - bottomLat) * ((10 - width) / (bottomLat - topLat));
+	        result = (value - bottomLat) * ((30 - width) / (bottomLat - topLat));
 		} else {
 	        result = (value - bottomLang) * ((10 - height) / (bottomLang - topLang));
 		}
@@ -105,7 +105,7 @@
                 return parseInt(d);
             }
 		} else {
-	        return 3;
+	        return 2;
 		}
 	}
 
@@ -129,12 +129,11 @@
                     var newCoordinates = [];
                     newCoordinates = data.map(function(obj) {
                         var rObj = {x: '', y: '', prio: '', title: ''};
-                        rObj.x = toRelativeCoordinate('x', parseInt(obj.Latitude));
-                        rObj.y = toRelativeCoordinate('y', parseInt(obj.Longitude));
+                        rObj.x = toRelativeCoordinate('x', parseInt(obj.rdx));
+                        rObj.y = toRelativeCoordinate('y', parseInt(obj.rdy));
                         rObj.prio = parsePriorityFromTitle(obj.Title);
                         rObj.title = obj.Title;
                         lastid = obj.ID;
-                        console.log(obj.Title, parsePriorityFromTitle(obj.Title));
                         return rObj;
                     });
                     coordinates = coordinates.concat(newCoordinates);

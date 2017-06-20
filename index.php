@@ -17,26 +17,8 @@
                 <div class="row">
                     <div class="col-12">
                         <h2>Latest reports</h2>
-                        <ul class="list">
-                            <li>
-                                <div class="label prio-1"></div>
-                                <p class="name">Huisbrand</p>
-                                <p class="location">Makkinga</p>
-                                <p class="time">10:56</p>
-                            </li>
-                            <li>
-                                <div class="label prio-2"></div>
-                                <p class="name">Brand door kortsluiting</p>
-                                <p class="location">Utrecht</p>
-                                <p class="time">10:56</p>
-                            </li>
-                            <li>
-                                <div class="label prio-3"></div>
-                                <p class="name">Kat in boom</p>
-                                <p class="location">Den Bosch</p>
-                                <p class="time">10:53</p>
-                            </li>
-                        </ul>
+						<ul class="list" id="latest-reports">
+						</ul>
                     </div>
                 </div>
             </div>
@@ -53,45 +35,44 @@
         </div>
     </div>
 </div>
-
 <!--suppress BadExpressionStatementJS -->
 <script type="text/javascript">
-	var coordinates = [];
+    var coordinates = [];
 
-	// Map X-RD and Y-RD (Rijksdriehoeksmeting) to the SVG map of the Netherlands
-	function toRelativeCoordinate(axis, value) {
-		// x-axis
+    // Map X-RD and Y-RD (Rijksdriehoeksmeting) to the SVG map of the Netherlands
+    function toRelativeCoordinate(axis, value) {
+        // x-axis
         var width = 580;
         var bottomLat = 8257;
         var topLat = 278013;
-		// y-axis
+        // y-axis
         var height = 675;
         var bottomLang = 615084;
         var topLang = 306877;
         var result;
-	    if (axis === 'x') {
-	        result = (value - bottomLat) * ((0 - width) / (bottomLat - topLat));
-		} else {
-	        result = (value - bottomLang) * ((0 - height) / (bottomLang - topLang));
-		}
-		return result;
-	}
+        if (axis === 'x') {
+            result = (value - bottomLat) * ((0 - width) / (bottomLat - topLat));
+        } else {
+            result = (value - bottomLang) * ((0 - height) / (bottomLang - topLang));
+        }
+        return result;
+    }
 
-	function getClassForPrio(prio) {
-		if(prio == 2) {
-			return 'prio-2';
-		} else if (prio == 3) {
-			return 'prio-3';
-		} else {
-			return 'prio-1';
-		}
-	}
+    function getClassForPrio(prio) {
+        if(prio == 2) {
+            return 'prio-2';
+        } else if (prio == 3) {
+            return 'prio-3';
+        } else {
+            return 'prio-1';
+        }
+    }
 
-	var data;
-	var lastid = 0;
+    var data;
+    var lastid = 0;
 
-	// Receive data via AJAX call from Database
-	function updateData() {
+    // Receive data via AJAX call from Database
+    function updateData() {
         var xmlhttp;
         if (window.XMLHttpRequest) {
             // code for IE7+, Firefox, Chrome, Opera, Safari
@@ -103,9 +84,11 @@
         xmlhttp.onreadystatechange = function () {
             if (this.readyState === 4 && this.status === 200) {
                 if(this.responseText !== 'UP-TO-DATE') {
-                    var audio = new Audio('src/sound/brand.m4a');
-                    audio.play();
-                    data = JSON.parse(this.response);
+					data = JSON.parse(this.response);
+                    if(data.length === 1) {
+						var audio = new Audio('src/sound/brand.mp3');
+						audio.play();
+					}
                     var newCoordinates = [];
                     newCoordinates = data.map(function(obj) {
                         var rObj = {};
@@ -113,13 +96,14 @@
                         rObj.y = toRelativeCoordinate('y', parseInt(obj.rdy));
                         rObj.title = obj.Title;
                         rObj.prio = obj.prio;
+                        rObj.province = obj.Province;
                         lastid = obj.ID;
                         return rObj;
                     });
                     coordinates = coordinates.concat(newCoordinates);
                     updateGraph(newCoordinates);
-				}
-			}
+                }
+            }
         };
         xmlhttp.open("GET", "get_coordinates.php?lastid="+lastid);
         xmlhttp.send();
@@ -127,10 +111,10 @@
 
     // Update graph every n seconds
     setInterval(function() {
-	    updateData()
-	}, 1000);
+        updateData()
+    }, 1000);
 
-	// SVG canvas options
+    // SVG canvas options
     var vivus = new Vivus('map-svg', options);
     var overlay = SVG('map-overlay');
 
@@ -143,27 +127,27 @@
         start: 'autostart'
     };
 
-	function updateGraph(data) {
-		// Update Graph lines
+    function updateGraph(data) {
+        // Update Graph lines
         var index = 0;
         var prioRadius = 30;
         var i = coordinates.length;
         if(index = 1) {
             firstX = coordinates[0].x;
             firstY = coordinates[0].y;
-		} else {
-			var firstX = coordinates[i - 2].x;
-			var firstY = coordinates[i - 2].y;
-		}
+        } else {
+            var firstX = coordinates[i - 2].x;
+            var firstY = coordinates[i - 2].y;
+        }
         data.map(location => {
             // Draw a circle with a radius relative to the priority
             overlay.circle(prioRadius/location.prio)
             .attr({'opacity': 0})
             .move(location.x - ((prioRadius/location.prio) / 2), location.y - ((prioRadius/location.prio) / 2))
-			.attr({'class': getClassForPrio(location.prio)})
+            .attr({'class': getClassForPrio(location.prio)})
             .animate(300, '<>', 800 + (index * 200))
             .attr({'opacity': 1})
-            // And a line from previous circle to new circle
+        // And a line from previous circle to new circle
         overlay.line(firstX, firstY, location.x, location.y)
             .attr({'opacity': 0})
             .animate(300, '<>', 800 + (index * 200))
@@ -172,6 +156,21 @@
         firstY = location.y;
         index++;
     })
+		updateList();
+    }
+
+    function updateList() {
+        var list = document.getElementById('latest-reports');
+        var innerList = '';
+        var element = '';
+        sortedCoordinates = coordinates.reverse();
+        sortedCoordinates.map(location => {
+            var prioClass = 'label prio-' + location.prio;
+            element = '<li>' + '<div class=\'' + prioClass + '\'></div><p class=\'name\'>' + location.title + '</p><p class=\'location\'>' + location.province + '</p></li>';
+        	innerList = innerList + ' ' + element;
+        	return element;
+    		});
+        list.innerHTML = innerList;
 	}
 </script>
 </body>

@@ -92,6 +92,7 @@
                     var newCoordinates = [];
                     newCoordinates = data.map(function(obj) {
                         var rObj = {};
+                        rObj.id = obj.ID;
                         rObj.x = toRelativeCoordinate('x', parseInt(obj.rdx));
                         rObj.y = toRelativeCoordinate('y', parseInt(obj.rdy));
                         rObj.title = obj.Title;
@@ -147,7 +148,7 @@
             .move(location.x - ((prioRadius/location.prio) / 2), location.y - ((prioRadius/location.prio) / 2))
             .attr({'class': getClassForPrio(location.prio)})
             .animate(300, '<>', 800 + (index * 200))
-            .attr({'opacity': 1})
+            .attr({'opacity': 1});
         // And a line from previous circle to new circle
         overlay.line(firstX, firstY, location.x, location.y)
             .attr({'opacity': 0})
@@ -164,8 +165,8 @@
         var list = document.getElementById('latest-reports');
         var innerList = '';
         var element = '';
-        sortedCoordinates = coordinates.reverse();
-        sortedCoordinates.map(location => {
+        coordinates.sort(function(a, b) { return b.id - a.id });
+        coordinates.map(location => {
             var prioClass = 'label prio-' + location.prio;
             element = '<li>' + '<div class=\'' + prioClass + '\'></div>' +
 				'<p class=\'name\'>' + location.title + '</p>' +

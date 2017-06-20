@@ -28,13 +28,18 @@
       left: 0
       opacity: 1 !important
       line
-        stroke: #000
+        stroke: rgba(0, 0, 0, 0.2)
+        //stroke-dasharray: 10, 5
       circle
         fill: rgba(147, 0, 14, 0.5)
         &.prio-2
           fill: rgba(255, 165, 0, 0.5)
         &.prio-3
           fill: rgba(0, 76, 121, 0.51)
+        &:last-of-type
+          animation: bounce 1s ease-in-out infinite
+          animation-delay: .5s
+          transform-origin: center center
   #map-overlay
     position: absolute
     left: 50%
@@ -45,3 +50,11 @@
   #map
     position: relative
     height: auto
+
+@keyframes bounce
+  0%
+    transform: scale(1)
+  80%
+    transform: scale(5)
+  100%
+    transform: scale(1)

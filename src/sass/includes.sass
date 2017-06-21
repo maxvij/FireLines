@@ -11,10 +11,9 @@ $accent-light : #d71016
 $sidebar-background-color : #F2F2F2
 $background-color : #FAFAFA
 
-$priority-1-color : #c80000
-$priority-2-color : #d7651e
-$priority-3-color : #d0c700
-
+$priority-1-color : rgb(147, 0, 14)
+$priority-2-color : rgb(255, 165, 0)
+$priority-3-color : rgb(0, 76, 121)
 
 @import url('https://fonts.googleapis.com/css?family=Lato:300,400,700,900')
 
@@ -26,3 +25,19 @@ $priority-3-color : #d0c700
     box-shadow: 1px 1px 5px rgba(0,0,0,0.4)
   @else
     box-shadow: 0 1px 2px rgba(0,0,0,.1)
+
+@keyframes bounce
+  0%
+    transform: scale(1)
+  80%
+    transform: scale(5)
+  100%
+    transform: scale(1)
+
+@keyframes bounceSmall
+  0%
+    transform: scale(1)
+  80%
+    transform: scale(1.3)
+  100%
+    transform: scale(1)

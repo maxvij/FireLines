@@ -21,7 +21,7 @@
     &.list
       padding: 0
       width: calc(100% + 60px)
-      margin: 0 -30px 30px -30px
+      margin: 0 -30px 0 -30px
       display: inline-block
       float: left
       background: $gray-lightest
@@ -35,6 +35,10 @@
         border-bottom: 1px solid $border-color
         &:first-child
           border-top: 1px solid $border-color
+          .label
+            animation: bounceSmall 1s ease-in-out infinite
+            animation-delay: .5s
+            transform-origin: center center
         .label, p
           display: inline-block
           float: left
@@ -77,6 +81,14 @@
             float: right
             text-align: right
             color: $gray-light
+  .latest-reports-wrapper
+    width: calc(100% + 60px)
+    margin: 0 -30px
+    padding: 0 30px
+    display: inline-block
+    float: left
+    height: 300px
+    overflow: auto
 
 @media (max-width: 991px)
   #sidebar

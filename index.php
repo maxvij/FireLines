@@ -16,11 +16,13 @@
             <div id="sidebar">
                 <div class="row">
                     <div class="col-12">
-                        <h2>Latest reports</h2>
-						<ul class="list" id="latest-reports">
-						</ul>
-                    </div>
-                </div>
+						<h2>Latest reports</h2>
+						<div class="latest-reports-wrapper">
+							<ul class="list" id="latest-reports">
+							</ul>
+						</div>
+					</div>
+				</div>
             </div>
         </div>
         <div class="col-12 col-md-12 col-lg-8">
@@ -142,7 +144,13 @@
             var firstY = coordinates[i - 2].y;
         }
         data.map(location => {
-            // Draw a circle with a radius relative to the priority
+            overlay.circle(5)
+            .attr({'opacity': 0})
+            .move(location.x - 2.5, location.y - 2.5)
+            .attr({'class': getClassForPrio(location.prio) + ' small'})
+            .animate(300, '<>', 800 + (index * 200))
+            .attr({'opacity': 1});
+        // Draw a circle with a radius relative to the priority
             overlay.circle(prioRadius/location.prio)
             .attr({'opacity': 0})
             .move(location.x - ((prioRadius/location.prio) / 2), location.y - ((prioRadius/location.prio) / 2))

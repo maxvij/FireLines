@@ -55,13 +55,39 @@
   position: absolute
   z-index: 999
   width: 300px
-  height: 100px
-  background: black
   opacity: 0
   &.show
     opacity: 1
-  p
-    color: #FFF
+    .tooltip-inner
+      position: relative
+      width: 100%
+      height: auto
+      display: inline-block
+      float: left
+      background: $white
+      padding: 15px
+      +box-shadow(heavy)
+      p
+        padding: 15px 0 0 0
+        margin: 0
+        line-height: 20px
+        color: $black
+        display: inline-block
+        float: left
+        width: 100%
+        &.label
+          height: 10px
+          width: 10px
+          margin: 0
+          padding: 0
+          position: relative
+          border-radius: 50%
+          &.prio-1
+            background: $priority-1-color
+          &.prio-2
+            background: $priority-2-color
+          &.prio-3
+            background: $priority-3-color
 
 @media (max-width: 991px)
   #map

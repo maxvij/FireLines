@@ -1,16 +1,14 @@
 var coordinates = [];
 var tooltip = document.getElementById('tooltip');
-console.log(tooltip);
+
 // Tooltip functionality
 function showTooltip(x, y, title, prio) {
-    console.log(x, y, title, prio);
     tooltip.setAttribute('class', 'show');
-    tooltip.innerHTML = '<p class=\"title\">' +
-        title + '</p>';
+    tooltip.innerHTML = '<div class=\"tooltip-inner\"><p class=\"label prio-' + prio + '\"</p><p class=\"title\">' +
+        title + '</p></div>';
 }
 
 function hideTooltip() {
-    console.log('hide tooltip');
     tooltip.setAttribute('class', 'hide');
 }
 
@@ -37,13 +35,13 @@ function toRelativeCoordinate(axis, value) {
     return result;
 }
 
+function isNumber(obj) { return !isNaN(parseFloat(obj)) }
+
 function getClassForPrio(prio) {
-    if(prio == 2) {
-        return 'prio-2';
-    } else if (prio == 3) {
-        return 'prio-3';
+    if(isNumber(prio)) {
+        return 'prio-' + prio;
     } else {
-        return 'prio-1';
+        return 'prio-1'
     }
 }
 

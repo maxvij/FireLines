@@ -51,6 +51,17 @@
     left: 50%
     top: 50%
     transform: translateX(-50%) translateY(-50%)
+#tooltip
+  position: absolute
+  z-index: 999
+  width: 300px
+  height: 100px
+  background: black
+  opacity: 0
+  &.show
+    opacity: 1
+  p
+    color: #FFF
 
 @media (max-width: 991px)
   #map

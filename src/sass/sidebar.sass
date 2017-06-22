@@ -31,7 +31,7 @@
         float: left
         width: 100%
         list-style-type: none
-        height: 49px
+        height: 50px
         border-top: 1px solid transparent
         border-bottom: 1px solid $border-color
         &.highlighted
@@ -101,10 +101,70 @@
       text-align: right
       color: $accent
       font-weight: 400
+      width: 100%
+      display: inline-block
 
 /*
  *  Filter options
  */
+#sidebar
+  .noUi-base
+    width: 100%
+    display: inline-block
+    margin: 30px 0 15px 0
+    float: left
+    &:before, &:after
+      content: ""
+      width: 2px
+      height: 15px
+      background: $border-color-dark
+      display: inline-block
+      float: left
+      position: absolute
+    &:before
+      left: 2px
+      top: -7px
+    &:after
+      right: 2px
+      top: -7px
+  .noUi-horizontal
+    background: transparent
+    height: 20px
+    box-shadow: none
+    border: none
+    &:after
+      content: ""
+      height: 2px
+      width: calc(100% - 4px)
+      left: -3px
+      background: $border-color-dark
+      transform: translateY(-35px) translateX(2px)
+      display: inline-block
+      float: left
+  .noUi-connect
+    background: $accent
+    box-shadow: none
+    height: 2px
+  .noUi-handle
+    width: 20px
+    height: 20px
+    background: $accent
+    border: none
+    box-shadow: none
+    border-radius: 50%
+    left: 0
+    top: 0
+    transform: translateY(-50%)
+    &:before, &:after
+      content: none
+    &:hover, &:focus
+      background: $accent-light
+    &:focus
+      outline: none !important
+    &.noUi-handle-lower
+      left: -5px
+    &.noUi-handle-upper
+      left: -15px
 
 
 @media (max-width: 991px)

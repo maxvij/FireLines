@@ -21,7 +21,7 @@
                 <div class="row">
 					<div class="col-12">
 						<div class="row">
-							<div class="col-6 col-md-12">
+							<div class="col-12">
 								<h2>Filter options</h2>
 								<div class="row">
 									<div class="col-8">
@@ -33,7 +33,7 @@
 								</div>
 								<div id="priority-slider"></div>
 							</div>
-							<div class="col-6 col-md-12">
+							<div class="col-12">
 								<label>Provinces</label>
 								<div id="provinces"></div>
 							</div>

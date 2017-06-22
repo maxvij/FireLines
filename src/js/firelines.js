@@ -231,7 +231,7 @@ function updateGraph(data) {
     var priorityFilteredData = data.filter(function(a) {
         return parseInt(a.prio) >= parseInt(prioritySliderValues[0]) && parseInt(a.prio) <= parseInt(prioritySliderValues[1]) });
     updateProvincesTags(priorityFilteredData);
-    var priorityAndProvincesFilteredData = (selectedProvinceList.length !== 0 ? data.filter(function(a) {
+    var priorityAndProvincesFilteredData = (selectedProvinceList.length !== 0 ? priorityFilteredData.filter(function(a) {
         return selectedProvinceList.indexOf(a.province) !== -1;
     }) : priorityFilteredData);
     priorityAndProvincesFilteredData.map(location => {

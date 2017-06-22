@@ -188,12 +188,26 @@
       background: $accent-light
     &:focus
       outline: none !important
-    &.noUi-handle-lower
-      left: -10px
-    &.noUi-handle-upper
+    &.noUi-handle-lower, &.noUi-handle-upper
       left: -10px
 
 
 @media (max-width: 991px)
   #sidebar
     height: auto
+    padding: 15px 15px 0 15px
+    +box-shadow (heavy)
+    .noUi-handle
+      width: 15px
+      height: 15px
+      &.noUi-handle-lower, &.noUi-handle-upper
+        left: -7.5px
+    .latest-reports-wrapper
+      height: 150px
+      width: calc(100% + 30px)
+      margin: 0 -15px
+      padding: 0 15px
+      ul.list
+        width: calc(100% + 30px)
+        margin: 0 -15px
+        padding: 0

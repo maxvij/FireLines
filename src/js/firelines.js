@@ -155,12 +155,43 @@ prioritySlider.on('update', function(){
     }
     prioritySliderValue.innerHTML = readableValues;
     prioritySliderValues = prioritySlider.get();
-    updateList();
     if(dataLoaded) {
         resetGraph();
         updateGraph(coordinates);
     }
 });
+
+// Filter provinces
+var provincesDiv = document.getElementById('provinces');
+var provinceList = [];
+var availableProvinces = [];
+var provincesInnerHtml = [];
+var selectedProvinceList = [];
+
+function updateProvincesTags(coordinates) {
+    provincesInnerHtml = [];
+    availableProvinces = coordinates.map(function(coordinate) {
+        if(provinceList.indexOf(coordinate.province) === -1) {
+            provinceList.push(coordinate.province);
+        }
+    });
+    var provincesTags = provinceList.map(function(province) {
+        var provinceClassName = selectedProvinceList.indexOf(province) !== -1 ? 'province-tag selected' : 'province-tag';
+            provincesInnerHtml.push('<div class=\"' + provinceClassName + '\" id=\"province-' + province + '\" onClick=\"javascript: selectProvince(\'' + province + '\')\">' + province + '</div>');
+        });
+    provincesDiv.innerHTML = provincesInnerHtml.join(' ');
+}
+
+function selectProvince(province) {
+    var index = selectedProvinceList.indexOf(province);
+    if(index === -1) {
+        selectedProvinceList.push(province);
+    } else {
+        selectedProvinceList.splice(index, 1);
+    }
+    resetGraph();
+    updateGraph(coordinates);
+}
 
 // Update graph every n seconds
 setInterval(function() {
@@ -168,17 +199,16 @@ setInterval(function() {
 }, 1000);
 
 // SVG canvas options
-var vivus = new Vivus('map-svg', options);
-var overlay = SVG('map-overlay');
-
 var options = {
-    type: 'oneByOne',
-    duration: 50,
+    type: 'delayed',
+    duration: 150,
     animTimingFunction: Vivus.EASE,
     pathTimingFunction: Vivus.EASE,
     reverseStack: true,
     start: 'autostart'
 };
+var vivus = new Vivus('map-svg', options);
+var overlay = SVG('map-overlay');
 
 function resetGraph() {
     overlay.clear();
@@ -198,9 +228,13 @@ function updateGraph(data) {
     }
     var animDuration = (data.length < 10 ? 150 : 2000 / data.length);
     data = data.sort(function(a, b) { return a.id - b.id });
-    var displayedData = data.filter(function(a) {
+    var priorityFilteredData = data.filter(function(a) {
         return parseInt(a.prio) >= parseInt(prioritySliderValues[0]) && parseInt(a.prio) <= parseInt(prioritySliderValues[1]) });
-    displayedData.map(location => {
+    updateProvincesTags(priorityFilteredData);
+    var priorityAndProvincesFilteredData = (selectedProvinceList.length !== 0 ? data.filter(function(a) {
+        return selectedProvinceList.indexOf(a.province) !== -1;
+    }) : priorityFilteredData);
+    priorityAndProvincesFilteredData.map(location => {
         // Draw a circle at the end of the line
         overlay.circle(5)
         .attr({'opacity': 0})
@@ -228,17 +262,14 @@ function updateGraph(data) {
     firstY = location.y;
     index++;
 })
-    updateList();
+    updateList(priorityAndProvincesFilteredData);
 }
 
-function updateList() {
+function updateList(data) {
     var list = document.getElementById('latest-reports');
     var innerList = '';
     var element = '';
-    coordinates = coordinates.sort(function(a, b) { return b.id - a.id });
-    var displayedCoordinates = coordinates.filter(function(a) {
-        return parseInt(a.prio) >= parseInt(prioritySliderValues[0]) && parseInt(a.prio) <= parseInt(prioritySliderValues[1]) });
-    displayedCoordinates.map(location => {
+    data.map(location => {
         var prioClass = 'label prio-' + location.prio;
     element = '<li id=\"list-' + location.id + '\">' + '<div class=\'' + prioClass + '\'></div>' +
         '<p class=\'name\'>' + location.title + '</p>' +

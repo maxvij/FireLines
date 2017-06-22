@@ -4,7 +4,7 @@ var tooltip = document.getElementById('tooltip');
 // Tooltip functionality
 function showTooltip(x, y, title, prio) {
     tooltip.setAttribute('class', 'show');
-    tooltip.innerHTML = '<div class=\"tooltip-inner\"><p class=\"label prio-' + prio + '\"</p><p class=\"title\">' +
+    tooltip.innerHTML = '<div class=\"tooltip-inner prio-' + prio + '\"><p class=\"label prio-' + prio + '\"</p><p class=\"title\">' +
         title + '</p></div>';
 }
 
@@ -13,7 +13,25 @@ function hideTooltip() {
 }
 
 document.addEventListener("mousemove", function(e) {
-    tooltip.setAttribute('style', 'left: ' + (e.clientX + 10) + 'px; top:' + (e.clientY + 10) + 'px');
+    var styleString = '';
+    var tooltipHeight = document.getElementById('tooltip').clientHeight;
+    console.log(tooltipHeight);
+    if(e.clientX > (window.innerWidth - 320)) {
+        if(e.clientY > (window.innerHeight - 200)) {
+            styleString = 'left: ' + (e.clientX - 295) + 'px; top:' + (e.clientY - (tooltipHeight + 5)) + 'px;';
+        }
+        else {
+            styleString = 'left: ' + (e.clientX - 295) + 'px; top:' + (e.clientY + 5) + 'px';
+        }
+    } else {
+        if(e.clientY > (window.innerHeight - 200)) {
+            styleString = 'left: ' + (e.clientX + 5) + 'px; top:' + (e.clientY - (tooltipHeight + 5)) + 'px';
+        }
+        else {
+            styleString = 'left: ' + (e.clientX + 5) + 'px; top:' + (e.clientY + 5) + 'px';
+        }
+    }
+    tooltip.setAttribute('style', styleString);
 });
 
 // Map X-RD and Y-RD (Rijksdriehoeksmeting) to the SVG map of the Netherlands
@@ -118,20 +136,21 @@ function updateGraph(data) {
         var firstX = coordinates[i - 2].x;
         var firstY = coordinates[i - 2].y;
     }
+    var animDuration = (data.length < 10 ? 150 : 2000 / data.length);
     data.map(location => {
         // Draw a circle at the end of the line
         overlay.circle(5)
         .attr({'opacity': 0})
         .move(location.x - 2.5, location.y - 2.5)
         .attr({'class': getClassForPrio(location.prio) + ' small'})
-        .animate(300, '<>', 800 + (index * 200))
+        .animate(300, '<>', 200 + (index * animDuration))
         .attr({'opacity': 1});
     // Draw a circle with a radius relative to the priority
     var circle = overlay.circle(prioRadius/location.prio);
     circle.attr({'opacity': 0})
         .move(location.x - ((prioRadius/location.prio) / 2), location.y - ((prioRadius/location.prio) / 2))
         .attr({'class': getClassForPrio(location.prio)})
-        .animate(300, '<>', 800 + (index * 200))
+        .animate(300, '<>', 200 + (index * animDuration))
         .attr({'opacity': 1});
 
     circle.node.addEventListener('mouseout', function() { hideTooltip() });
@@ -140,7 +159,7 @@ function updateGraph(data) {
     // And a line from previous circle to new circle
     overlay.line(firstX, firstY, location.x, location.y)
         .attr({'opacity': 0})
-        .animate(300, '<>', 800 + (index * 200))
+        .animate(300, '<>', 200 + (index * animDuration))
         .attr({'opacity': 1});
     firstX = location.x;
     firstY = location.y;

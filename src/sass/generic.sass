@@ -22,3 +22,18 @@ a:hover, a:focus
   color: $accent-light
   outline: none
   +transition(all)
+
+/*
+ * Scrollbar
+ */
+::-webkit-scrollbar-track
+  background-color: transparent
+  box-shadow: none
+::-webkit-scrollbar
+  width: 8px
+  box-shadow: none
+  border-radius: 4px
+  background-color: transparent
+::-webkit-scrollbar-thumb
+  border-radius: 4px
+  background-color: $border-color-dark

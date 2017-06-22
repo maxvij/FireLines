@@ -20,16 +20,24 @@
             <div id="sidebar">
                 <div class="row">
 					<div class="col-12">
-						<h2>Filter options</h2>
 						<div class="row">
-							<div class="col-8">
-								<label>Report priority</label>
+							<div class="col-6 col-md-12">
+								<h2>Filter options</h2>
+								<div class="row">
+									<div class="col-8">
+										<label>Report priority</label>
+									</div>
+									<div class="col-4">
+										<label class="value" id="priority-slider-value">1-3</label>
+									</div>
+								</div>
+								<div id="priority-slider"></div>
 							</div>
-							<div class="col-4">
-								<label class="value" id="priority-slider-value">1-3</label>
+							<div class="col-6 col-md-12">
+								<label>Provinces</label>
+								<div id="provinces"></div>
 							</div>
 						</div>
-						<div id="priority-slider"></div>
 					</div>
                     <div class="col-12">
 						<h2>Latest reports</h2>

@@ -11,6 +11,7 @@
   display: inline-block
   padding: 15px 30px
   position: relative
+  overflow: hidden
   #map-overlay, #map-svg, #map-svg svg, #map-svg + svg
     width: 600px
     height: 675px
@@ -22,6 +23,7 @@
         stroke: #ededed !important
         fill: transparent !important
         stroke-width: 3px !important
+        pointer-events: none
     + svg
       position: absolute
       top: 0
@@ -29,9 +31,14 @@
       opacity: 1 !important
       line
         stroke: rgba(0, 0, 0, 0.2)
-        //stroke-dasharray: 10, 5
+        pointer-events: none
       circle
         fill: rgba(147, 0, 14, 0.5)
+        transition: all .1s ease-in-out
+        &:hover
+          transform: scale(2)
+          transform-origin: center center
+          transition: all .1s ease-in-out
         &.small
           fill: $priority-1-color
           &.prio-2
@@ -54,10 +61,16 @@
 #tooltip
   position: absolute
   z-index: 999
-  width: 300px
   opacity: 0
+  width: 300px
+  height: auto
+  overflow: hidden
+  transition: all .15s ease-in-out
+  pointer-events: none
   &.show
     opacity: 1
+    overflow: visible
+    transition: all .15s ease-in-out
     .tooltip-inner
       position: relative
       width: 100%
@@ -66,7 +79,14 @@
       float: left
       background: $white
       padding: 15px
-      +box-shadow(heavy)
+      border-bottom: 2px solid $border-color
+      +box-shadow(light)
+      &.prio-1
+        border-bottom-color: $priority-1-color
+      &.prio-2
+        border-bottom-color: $priority-2-color
+      &.prio-3
+        border-bottom-color: $priority-3-color
       p
         padding: 15px 0 0 0
         margin: 0

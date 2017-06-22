@@ -20,6 +20,7 @@
                 <div class="row">
                     <div class="col-12">
 						<h2>Latest reports</h2>
+						<h4>Displaying <span id="number-of-reports"></span> reports</h4>
 						<div class="latest-reports-wrapper">
 							<ul class="list" id="latest-reports">
 							</ul>

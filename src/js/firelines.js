@@ -118,9 +118,8 @@ function updateData() {
                     return rObj;
                 });
                 newCoordinates = newCoordinates.sort(function(a, b) { return b.id - a.id });
-                newCoordinates = newCoordinates.slice(0, maximumNumberOfReports);
                 coordinates = coordinates.concat(newCoordinates);
-                updateGraph(newCoordinates);
+                updateGraph();
                 dataLoaded = true;
             }
         }
@@ -128,6 +127,30 @@ function updateData() {
     xmlhttp.open("GET", "get_coordinates.php?lastid="+lastid);
     xmlhttp.send();
 }
+// Change amount of priorities shown
+var amountSliderDiv = document.getElementById('amount-slider');
+var amountSliderValue = document.getElementById('amount-slider-value');
+
+var amountSlider = noUiSlider.create(amountSliderDiv, {
+    start: [50],
+    step: 10,
+    range: {
+        min: [ 10 ],
+        max: [ 200 ]
+    }
+});
+
+amountSlider.on('update', function() {
+    var amountValue = amountSlider.get();
+    amountSliderValue.innerHTML = parseInt(amountValue).toFixed(0).toString();
+});
+
+amountSlider.on('end', function() {
+    var amountValue = amountSlider.get();
+    maximumNumberOfReports = parseInt(amountValue).toFixed(0);
+    resetGraph();
+    updateGraph();
+});
 
 // Filter priorites
 var prioritySliderDiv = document.getElementById('priority-slider');
@@ -157,7 +180,7 @@ prioritySlider.on('update', function(){
     prioritySliderValues = prioritySlider.get();
     if(dataLoaded) {
         resetGraph();
-        updateGraph(coordinates);
+        updateGraph();
     }
 });
 
@@ -190,7 +213,7 @@ function selectProvince(province) {
         selectedProvinceList.splice(index, 1);
     }
     resetGraph();
-    updateGraph(coordinates);
+    updateGraph();
 }
 
 // Update graph every n seconds
@@ -214,8 +237,9 @@ function resetGraph() {
     overlay.clear();
 }
 
-function updateGraph(data) {
+function updateGraph() {
     // Update Graph lines
+    var data = coordinates;
     var index = 0;
     var prioRadius = 30;
     var i = coordinates.length;
@@ -227,6 +251,8 @@ function updateGraph(data) {
         var firstY = coordinates[i - 2].y;
     }
     var animDuration = (data.length < 10 ? 150 : 2000 / data.length);
+    data = data.sort(function(a, b) { return b.id - a.id });
+    data = data.slice(0, maximumNumberOfReports);
     data = data.sort(function(a, b) { return a.id - b.id });
     var priorityFilteredData = data.filter(function(a) {
         return parseInt(a.prio) >= parseInt(prioritySliderValues[0]) && parseInt(a.prio) <= parseInt(prioritySliderValues[1]) });
@@ -266,6 +292,7 @@ function updateGraph(data) {
 }
 
 function updateList(data) {
+    data = data.sort(function(a, b) { return b.id - a.id });
     var list = document.getElementById('latest-reports');
     var innerList = '';
     var element = '';

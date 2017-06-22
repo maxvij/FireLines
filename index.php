@@ -25,13 +25,30 @@
 								<h2>Filter options</h2>
 								<div class="row">
 									<div class="col-8">
+										<label>Amount of reports</label>
+									</div>
+									<div class="col-4">
+										<label class="value" id="amount-slider-value"></label>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-12">
+										<div id="amount-slider"></div>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-8">
 										<label>Report priority</label>
 									</div>
 									<div class="col-4">
 										<label class="value" id="priority-slider-value">1-3</label>
 									</div>
 								</div>
-								<div id="priority-slider"></div>
+								<div class="row">
+									<div class="col-12">
+										<div id="priority-slider"></div>
+									</div>
+								</div>
 							</div>
 							<div class="col-12">
 								<label>Provinces</label>

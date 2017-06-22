@@ -1,8 +1,27 @@
 var coordinates = [];
 var tooltip = document.getElementById('tooltip');
+var highlightedListItemId = 0;
+var maximumNumberOfReports = 50;
+
+// Set number of displayed reports
+document.getElementById('number-of-reports').innerHTML = maximumNumberOfReports;
+
+// Highlight list item
+function highlightListItem(id) {
+    var listItem = document.getElementById('list-' + id);
+    listItem.setAttribute('class', 'highlighted');
+    highlightedListItemId = id;
+}
+
+function unhighlightListItem(id) {
+    var listItem = document.getElementById('list-' + id);
+    listItem.setAttribute('class', '');
+    highlightedListItemId = 0;
+}
 
 // Tooltip functionality
-function showTooltip(x, y, title, prio) {
+function showTooltip(id, title, prio) {
+    highlightListItem(id);
     tooltip.setAttribute('class', 'show');
     tooltip.innerHTML = '<div class=\"tooltip-inner prio-' + prio + '\"><p class=\"label prio-' + prio + '\"</p><p class=\"title\">' +
         title + '</p></div>';
@@ -10,12 +29,12 @@ function showTooltip(x, y, title, prio) {
 
 function hideTooltip() {
     tooltip.setAttribute('class', 'hide');
+    unhighlightListItem(highlightedListItemId);
 }
 
 document.addEventListener("mousemove", function(e) {
     var styleString = '';
     var tooltipHeight = document.getElementById('tooltip').clientHeight;
-    console.log(tooltipHeight);
     if(e.clientX > (window.innerWidth - 320)) {
         if(e.clientY > (window.innerHeight - 200)) {
             styleString = 'left: ' + (e.clientX - 295) + 'px; top:' + (e.clientY - (tooltipHeight + 5)) + 'px;';
@@ -97,6 +116,8 @@ function updateData() {
                     lastid = obj.ID;
                     return rObj;
                 });
+                newCoordinates = newCoordinates.sort(function(a, b) { return b.id - a.id });
+                newCoordinates = newCoordinates.slice(0, maximumNumberOfReports);
                 coordinates = coordinates.concat(newCoordinates);
                 updateGraph(newCoordinates);
             }
@@ -137,6 +158,7 @@ function updateGraph(data) {
         var firstY = coordinates[i - 2].y;
     }
     var animDuration = (data.length < 10 ? 150 : 2000 / data.length);
+    data.sort(function(a, b) { return a.id - b.id });
     data.map(location => {
         // Draw a circle at the end of the line
         overlay.circle(5)
@@ -154,7 +176,7 @@ function updateGraph(data) {
         .attr({'opacity': 1});
 
     circle.node.addEventListener('mouseout', function() { hideTooltip() });
-    circle.node.addEventListener('mouseover', function() { showTooltip(location.x, location.y, location.title, location.prio)});
+    circle.node.addEventListener('mouseover', function() { showTooltip(location.id, location.title, location.prio)});
 
     // And a line from previous circle to new circle
     overlay.line(firstX, firstY, location.x, location.y)
@@ -175,7 +197,7 @@ function updateList() {
     coordinates.sort(function(a, b) { return b.id - a.id });
     coordinates.map(location => {
         var prioClass = 'label prio-' + location.prio;
-    element = '<li>' + '<div class=\'' + prioClass + '\'></div>' +
+    element = '<li id=\"list-' + location.id + '\">' + '<div class=\'' + prioClass + '\'></div>' +
         '<p class=\'name\'>' + location.title + '</p>' +
         '<p class=\'location\'>' + location.province + '</p>' +
         '<p class=\'time\'>' + location.time + '</p>' +

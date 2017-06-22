@@ -31,8 +31,13 @@
         float: left
         width: 100%
         list-style-type: none
-        height: 50px
+        height: 49px
+        border-top: 1px solid transparent
         border-bottom: 1px solid $border-color
+        &.highlighted
+          background: white
+          p
+            color: $highlight-color
         &:first-child
           border-top: 1px solid $border-color
           .label

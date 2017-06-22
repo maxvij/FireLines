@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="src/css/style.css" media="all"/>
     <script type="text/javascript" src="src/js/vivus.min.js"></script>
     <script type="text/javascript" src="src/js/svg.min.js"></script>
+    <script type="text/javascript" src="src/js/nouislider.min.js"></script>
 </head>
 <body>
 <div id="tooltip">
@@ -18,6 +19,18 @@
         <div class="col-md-12 col-lg-4">
             <div id="sidebar">
                 <div class="row">
+					<div class="col-12">
+						<h2>Filter options</h2>
+						<div class="row">
+							<div class="col-8">
+								<label>Report priority</label>
+							</div>
+							<div class="col-4">
+								<label class="value" id="priority-slider-value">1-3</label>
+							</div>
+						</div>
+						<div id="priority-slider"></div>
+					</div>
                     <div class="col-12">
 						<h2>Latest reports</h2>
 						<h4>Displaying <span id="number-of-reports"></span> reports</h4>

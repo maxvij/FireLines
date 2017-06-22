@@ -2,6 +2,7 @@ var coordinates = [];
 var tooltip = document.getElementById('tooltip');
 var highlightedListItemId = 0;
 var maximumNumberOfReports = 50;
+var dataLoaded = false;
 
 // Set number of displayed reports
 document.getElementById('number-of-reports').innerHTML = maximumNumberOfReports;
@@ -120,12 +121,46 @@ function updateData() {
                 newCoordinates = newCoordinates.slice(0, maximumNumberOfReports);
                 coordinates = coordinates.concat(newCoordinates);
                 updateGraph(newCoordinates);
+                dataLoaded = true;
             }
         }
     };
     xmlhttp.open("GET", "get_coordinates.php?lastid="+lastid);
     xmlhttp.send();
 }
+
+// Filter priorites
+var prioritySliderDiv = document.getElementById('priority-slider');
+var prioritySliderValue = document.getElementById('priority-slider-value');
+
+var prioritySlider = noUiSlider.create(prioritySliderDiv, {
+    start: [1, 3],
+    step: 1,
+    connect: true,
+    range: {
+        'min': 1,
+        'max': 3
+    }
+});
+
+var prioritySliderValues = prioritySlider.get();
+
+prioritySlider.on('update', function(){
+    var values = prioritySlider.get();
+    var readableValues = '';
+    if(values[0] === values[1]) {
+        readableValues = parseInt(values[0]).toFixed(0);
+    } else {
+        readableValues = parseInt(values[0]).toFixed(0) + '-' + parseInt(values[1]).toFixed(0);
+    }
+    prioritySliderValue.innerHTML = readableValues;
+    prioritySliderValues = prioritySlider.get();
+    updateList();
+    if(dataLoaded) {
+        resetGraph();
+        updateGraph(coordinates);
+    }
+});
 
 // Update graph every n seconds
 setInterval(function() {
@@ -145,6 +180,10 @@ var options = {
     start: 'autostart'
 };
 
+function resetGraph() {
+    overlay.clear();
+}
+
 function updateGraph(data) {
     // Update Graph lines
     var index = 0;
@@ -158,8 +197,10 @@ function updateGraph(data) {
         var firstY = coordinates[i - 2].y;
     }
     var animDuration = (data.length < 10 ? 150 : 2000 / data.length);
-    data.sort(function(a, b) { return a.id - b.id });
-    data.map(location => {
+    data = data.sort(function(a, b) { return a.id - b.id });
+    var displayedData = data.filter(function(a) {
+        return parseInt(a.prio) >= parseInt(prioritySliderValues[0]) && parseInt(a.prio) <= parseInt(prioritySliderValues[1]) });
+    displayedData.map(location => {
         // Draw a circle at the end of the line
         overlay.circle(5)
         .attr({'opacity': 0})
@@ -194,8 +235,10 @@ function updateList() {
     var list = document.getElementById('latest-reports');
     var innerList = '';
     var element = '';
-    coordinates.sort(function(a, b) { return b.id - a.id });
-    coordinates.map(location => {
+    coordinates = coordinates.sort(function(a, b) { return b.id - a.id });
+    var displayedCoordinates = coordinates.filter(function(a) {
+        return parseInt(a.prio) >= parseInt(prioritySliderValues[0]) && parseInt(a.prio) <= parseInt(prioritySliderValues[1]) });
+    displayedCoordinates.map(location => {
         var prioClass = 'label prio-' + location.prio;
     element = '<li id=\"list-' + location.id + '\">' + '<div class=\'' + prioClass + '\'></div>' +
         '<p class=\'name\'>' + location.title + '</p>' +

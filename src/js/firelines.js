@@ -166,7 +166,6 @@ amountSlider.on('change', function() {
     maximumNumberOfReports = parseInt(amountValue).toFixed(0);
     document.getElementById('number-of-reports').innerHTML = maximumNumberOfReports.toString();
     resetGraph();
-    updateGraph();
 });
 
 // Filter priorites
@@ -197,7 +196,6 @@ prioritySlider.on('update', function(){
     prioritySliderValues = prioritySlider.get();
     if(dataLoaded) {
         resetGraph();
-        updateGraph();
     }
 });
 
@@ -230,7 +228,6 @@ function selectProvince(province) {
         selectedProvinceList.splice(index, 1);
     }
     resetGraph();
-    updateGraph();
 }
 
 // Update graph every n seconds
@@ -248,10 +245,18 @@ var options = {
     start: 'autostart'
 };
 var vivus = new Vivus('map-svg', options);
-var overlay = SVG('map-overlay');
+var SVGoverlay = SVG('map-overlay');
+var overlay = SVGoverlay.group();
 
 function resetGraph() {
-    overlay.clear();
+    overlay.attr({'opacity': 1})
+        .animate(150)
+        .attr({'opacity': 0})
+        .after(function() {
+            SVGoverlay.clear();
+            overlay = SVGoverlay.group();
+            updateGraph();
+        });
 }
 
 function updateGraph(data) {

@@ -148,6 +148,7 @@ amountSlider.on('update', function() {
 amountSlider.on('change', function() {
     var amountValue = amountSlider.get();
     maximumNumberOfReports = parseInt(amountValue).toFixed(0);
+    document.getElementById('number-of-reports').innerHTML = maximumNumberOfReports.toString();
     resetGraph();
     updateGraph();
 });

@@ -16,7 +16,7 @@
 <div class="container-fluid">
     <?php include('partials/header.php'); ?>
     <div class="row">
-        <div class="col-md-12 col-lg-4">
+        <div class="col-md-12 col-lg-6 col-xl-4">
             <div id="sidebar">
                 <div class="row">
 					<div class="col-12">
@@ -67,7 +67,7 @@
 				</div>
             </div>
         </div>
-        <div class="col-12 col-md-12 col-lg-8">
+        <div class="col-md-12 col-lg-6 col-xl-8">
             <div id="map">
                 <div id="map-overlay">
                     <object id="map-svg" type="image/svg+xml" data="src/img/nl.svg"></object>

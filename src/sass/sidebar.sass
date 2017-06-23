@@ -34,15 +34,21 @@
         height: 50px
         border-top: 1px solid transparent
         border-bottom: 1px solid $border-color
+        transition: all .15s ease-in-out
         &:hover
           height: 100px
           background: white
+          transition: all .15s ease-in-out
           p
+            transition: all .15s ease-in-out
             color: $highlight-color
             &.name
               width: calc(100% - 15px)
             &.location
               width: 80%
+          p
+            transition: all .15s ease-in-out
+            pointer-events: none
         &.highlighted
           background: white
           p

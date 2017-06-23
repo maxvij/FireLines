@@ -37,25 +37,25 @@
 					</div>
 					<div class="row">
 						<div class="col-6 col-sm-4">
+							<div class="avatar joeri"></div>
+							<h3>Joeri Planting</h3>
+							<p>Software Team</p>
+						</div>
+						<div class="col-6 col-sm-4">
 							<div class="avatar jorik"></div>
 							<h3>Jorik Groeneveld</h3>
 							<p>Hardware Team</p>
 						</div>
 						<div class="col-6 col-sm-4">
-							<div class="avatar jeroen"></div>
-							<h3>Jeroen Waterink</h3>
-							<p>Hardware Team</p>
-						</div>
-						<div class="col-6 col-sm-4">
 							<div class="avatar sierd"></div>
 							<h3>Sierd Meijer</h3>
-							<p>Hardware Team</p>
+							<p>Software Team</p>
 						</div>
 					</div>
 					<div class="row">
 						<div class="col-6 col-sm-4">
-							<div class="avatar joeri"></div>
-							<h3>Joeri Planting</h3>
+							<div class="avatar jeroen"></div>
+							<h3>Jeroen Waterink</h3>
 							<p>Hardware Team</p>
 						</div>
 						<div class="col-6 col-sm-4">

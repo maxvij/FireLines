@@ -7,6 +7,25 @@ var dataLoaded = false;
 // Set number of displayed reports
 document.getElementById('number-of-reports').innerHTML = maximumNumberOfReports;
 
+// Get warning for report title
+function getWarningsForTitle(title) {
+    var warningList = [
+        {keyword: 'Woningbrand',
+        text: 'Testwarning'},
+        {keyword: 'Stank',
+        text: 'Pas op!'},
+        {keyword: 'Buitenbrand',
+            text: 'Pas op!'}
+    ];
+    var warningsForTitle = [];
+    warningList.map(function(warning) {
+        if(title.toLowerCase().indexOf(warning.keyword.toLowerCase()) !== -1) {
+            warningsForTitle.push(warning.text);
+        }
+    });
+    return warningsForTitle;
+}
+
 // Highlight list item
 function highlightListItem(id) {
     var listItem = document.getElementById('list-' + id);
@@ -40,8 +59,10 @@ function unhighlightCircle(id) {
 function showTooltip(id, title, prio) {
     highlightListItem(id);
     tooltip.setAttribute('class', 'show');
+    var warning = getWarningsForTitle(title).length > 0 ? '<p class=\"warning ion-android-warning\">' + getWarningsForTitle(title).join('<br />') + '</p>' : '';
     tooltip.innerHTML = '<div class=\"tooltip-inner prio-' + prio + '\"><p class=\"label prio-' + prio + '\"</p><p class=\"title\">' +
-        title + '</p></div>';
+        title + '</p>' +
+        warning + '</div>';
 }
 
 function hideTooltip() {
@@ -114,7 +135,7 @@ function updateData() {
     }
     xmlhttp.onreadystatechange = function () {
         if (this.readyState === 4 && this.status === 200) {
-            if(this.responseText !== 'UP-TO-DATE') {
+            if((this.responseText !== 'UP-TO-DATE') && (this.responseText.indexOf('Connection failed') === -1)) {
                 data = JSON.parse(this.response);
                 if(data.length === 1 || data.length === 2) {
                     var audio = new Audio('src/sound/brand.mp3');
@@ -280,7 +301,7 @@ function updateGraph(data) {
 
     // Calculate animation duration (so that the total duration is 2000 ms)
     var animDuration = (data.length < 10 ? 150 : 2000 / data.length);
-
+    console.log(data);
     // Sort data chronologically ASC before grabbing the last n reports
     data = data.sort(function(a, b) { return b.id - a.id });
     data = data.slice(0, maximumNumberOfReports);

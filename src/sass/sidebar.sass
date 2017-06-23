@@ -138,40 +138,44 @@
   .noUi-base
     width: 100%
     display: inline-block
-    margin: 15px 0 15px 0
+    margin: 0
+    height: 30px
+    padding: 5px 0
     float: left
     &:before, &:after
       content: ""
       width: 2px
+      top: -1px
       height: 15px
       background: $border-color-dark
       display: inline-block
       float: left
       position: absolute
     &:before
-      left: 2px
-      top: -7px
+      left: 0
     &:after
-      right: 2px
-      top: -7px
+      right: 0
   .noUi-horizontal
     background: transparent
-    height: 20px
+    height: 30px
+    margin: 15px 0
     box-shadow: none
     border: none
     &:after
       content: ""
       height: 2px
-      width: calc(100% - 4px)
-      left: -3px
+      width: 100%
+      left: 0
+      top: 0
       background: $border-color-dark
-      transform: translateY(-35px) translateX(2px)
+      transform: translateY(-25px)
       display: inline-block
       float: left
   .noUi-connect
     background: $accent
     box-shadow: none
     height: 2px
+    top: 5px
   .noUi-handle
     width: 20px
     height: 20px
@@ -196,7 +200,7 @@
   #sidebar
     height: auto
     padding: 15px 15px 0 15px
-    +box-shadow (heavy)
+    +box-shadow (light)
     .noUi-handle
       width: 15px
       height: 15px

@@ -6,7 +6,6 @@
 #map
   width: calc(100% + 30px)
   margin: 0 -15px
-  background: $background-color
   height: calc(100vh - 80px)
   display: inline-block
   padding: 15px 30px
@@ -50,7 +49,7 @@
         &.prio-2
           fill: rgba(255, 165, 0, 0.5)
         &.prio-3
-          fill: rgba(0, 76, 121, 0.51)
+          fill: rgba(255, 220, 30, 0.51)
         &:last-of-type
           animation: bounce 1s ease-in-out infinite
           animation-delay: .5s
@@ -61,7 +60,7 @@
     top: 50%
     transform: translateX(-50%) translateY(-50%)
 #tooltip
-  position: absolute
+  position: fixed
   z-index: 999
   opacity: 0
   width: 300px

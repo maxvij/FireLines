@@ -145,9 +145,10 @@ amountSlider.on('update', function() {
     amountSliderValue.innerHTML = parseInt(amountValue).toFixed(0).toString();
 });
 
-amountSlider.on('end', function() {
+amountSlider.on('change', function() {
     var amountValue = amountSlider.get();
     maximumNumberOfReports = parseInt(amountValue).toFixed(0);
+    document.getElementById('number-of-reports').innerHTML = maximumNumberOfReports.toString();
     resetGraph();
     updateGraph();
 });

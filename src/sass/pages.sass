@@ -1,0 +1,40 @@
+@import "includes"
+
+/*
+ * Pages styling
+ */
+.container-fluid + .container
+  margin-top: 100px
+.panel
+  background: $white
+  width: calc(100% + 30px)
+  margin: 0 -15px
+  padding: 0 15px
+  display: inline-block
+  float: left
+  +box-shadow(light)
+  .heading
+    height: 80px
+    padding: 20px 15px
+    &:after
+      content: ""
+      width: calc(100% + 60px)
+      margin: 20px -30px
+      height: 1px
+      display: inline-block
+      float: left
+      background: $border-color
+    h2
+      line-height: 40px
+      margin: 0
+      text-transform: uppercase
+      color: $accent
+      font-weight: 300
+  .content
+    padding: 20px 15px
+    h3
+      line-height: 20px
+      margin: 0
+      text-transform: uppercase
+      font-weight: 200
+      color: $accent

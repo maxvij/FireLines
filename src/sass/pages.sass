@@ -19,7 +19,7 @@
     &:after
       content: ""
       width: calc(100% + 60px)
-      margin: 20px -30px
+      margin: 20px -30px 0 -30px
       height: 1px
       display: inline-block
       float: left
@@ -31,10 +31,18 @@
       color: $accent
       font-weight: 300
   .content
-    padding: 20px 15px
+    padding: 0 15px
+    p
+      padding: 0 0 15px 0
+      font-size: 16px
+      line-height: 22px
+      &.lead
+        font-size: 18px
+        font-style: italic
+        line-height: 25px
     h3
       line-height: 20px
-      margin: 0
+      margin: 0 0 15px 0
       text-transform: uppercase
       font-weight: 200
       color: $accent

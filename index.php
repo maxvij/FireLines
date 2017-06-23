@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>FireLines | About</title>
+	<title>FireLines | Real-time fire reports in the Netherlands</title>
 	<link rel="stylesheet" href="src/css/vendor.css" media="all"/>
 	<link rel="stylesheet" href="src/css/style.css" media="all"/>
 	<script type="text/javascript" src="src/js/vivus.min.js"></script>

@@ -5,6 +5,7 @@
  */
 .container-fluid + .container
   margin-top: 100px
+  margin-bottom: 100px
 .panel
   background: $white
   width: calc(100% + 30px)
@@ -32,6 +33,12 @@
       font-weight: 300
   .content
     padding: 0 15px
+    width: 100%
+    display: inline-block
+    float: left
+    &.contact
+      [class*='col']
+        text-align: center
     p
       padding: 0 0 15px 0
       font-size: 16px
@@ -46,3 +53,38 @@
       text-transform: uppercase
       font-weight: 200
       color: $accent
+    .avatar + h3, .avatar + h3 + p
+      text-align: center
+    .avatar
+      width: 100px
+      height: 100px
+      display: inline-block
+      margin: 30px 0
+      text-align: center
+      background-size: cover
+      border-radius: 50%
+      overflow: hidden
+      &.felicia
+        background-image: url('../img/felicia.jpeg')
+      &.zoe
+        background-image: url('../img/zoe.jpeg')
+      &.cas
+        background-image: url('../img/cas.png')
+      &.jorik
+        background-image: url('../img/jorik.png')
+      &.jeroen
+        background-image: url('../img/jeroen.png')
+      &.sierd
+        background-image: url('../img/sierd.png')
+      &.joeri
+        background-image: url('../img/joeri.jpeg')
+      &.vasco
+        background-image: url('../img/vasco.png')
+      &.floor
+        background-image: url('../img/floor.jpeg')
+      &.linde
+        background-image: url('../img/linde.png')
+      &.max
+        background-image: url('../img/max.png')
+      &.karsten
+        background-image: url('../img/karsten.jpeg')

@@ -20,6 +20,22 @@ function unhighlightListItem(id) {
     highlightedListItemId = 0;
 }
 
+function highlightCircle(id) {
+    var circle = document.getElementById('circle-' + id);
+    var lastCircleId = coordinates[0].id;
+    var lastCircle = document.getElementById('circle-' + lastCircleId);
+    lastCircle.setAttribute('style', 'animation: none');
+    circle.setAttribute('style', 'transform: scale(2); transform-origin: center center; animation: bounce 1s ease-in-out infinite');
+}
+
+function unhighlightCircle(id) {
+    var circle = document.getElementById('circle-' + id);
+    var lastCircleId = coordinates[0].id;
+    var lastCircle = document.getElementById('circle-' + lastCircleId);
+    lastCircle.setAttribute('style', '');
+    circle.setAttribute('style', 'transform: scale(1); transform-origin: center center;');
+}
+
 // Tooltip functionality
 function showTooltip(id, title, prio) {
     highlightListItem(id);
@@ -275,7 +291,8 @@ function updateGraph() {
         .move(location.x - ((prioRadius/location.prio) / 2), location.y - ((prioRadius/location.prio) / 2))
         .attr({'class': getClassForPrio(location.prio)})
         .animate(300, '<>', 200 + (index * animDuration))
-        .attr({'opacity': 1});
+        .attr({'opacity': 1})
+        .attr({'id': 'circle-' + location.id});
 
     circle.node.addEventListener('mouseout', function() { hideTooltip() });
     circle.node.addEventListener('mouseover', function() { showTooltip(location.id, location.title, location.prio)});
@@ -299,8 +316,8 @@ function updateList(data) {
     var element = '';
     data.map(location => {
         var prioClass = 'label prio-' + location.prio;
-    element = '<li id=\"list-' + location.id + '\">' + '<div class=\'' + prioClass + '\'></div>' +
-        '<p class=\'name\'>' + location.title + '</p>' +
+    element = '<li id=\"list-' + location.id + '\" onmouseenter=\"javascript: highlightCircle(' + location.id + ')\" onmouseleave=\"javascript: unhighlightCircle(' + location.id + ')\">' + '<div class=\'' + prioClass + '\'></div>' +
+        '<p class=\'name\' title=\'' + location.title + '\'>' + location.title + '</p>' +
         '<p class=\'location\'>' + location.province + '</p>' +
         '<p class=\'time\'>' + location.time + '</p>' +
         '</li>';

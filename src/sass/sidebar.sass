@@ -34,6 +34,15 @@
         height: 50px
         border-top: 1px solid transparent
         border-bottom: 1px solid $border-color
+        &:hover
+          height: 100px
+          background: white
+          p
+            color: $highlight-color
+            &.name
+              width: calc(100% - 15px)
+            &.location
+              width: 80%
         &.highlighted
           background: white
           p
@@ -72,9 +81,9 @@
             background: $priority-3-color
         p
           height: 50px
-          padding: 15px 10px
+          padding: 15px 5px
           &.name
-            width: 40%
+            width: 50%
           &.location
             width: 30%
           &.name, &.location
@@ -82,6 +91,7 @@
             overflow: hidden
             white-space: nowrap
           &.time
+            width: calc(20% - 15px)
             font-weight: 200
             float: right
             text-align: right

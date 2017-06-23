@@ -195,7 +195,7 @@ var selectedProvinceList = [];
 function updateProvincesTags(coordinates) {
     provincesInnerHtml = [];
     availableProvinces = coordinates.map(function(coordinate) {
-        if(provinceList.indexOf(coordinate.province) === -1) {
+        if(provinceList.indexOf(coordinate.province) === -1 && !isNumber(coordinate.province)) {
             provinceList.push(coordinate.province);
         }
     });

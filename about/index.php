@@ -3,8 +3,8 @@
 <head>
 	<meta charset="UTF-8">
 	<title>FireLines | Real-time fire reports in the Netherlands</title>
-	<link rel="stylesheet" href="src/css/vendor.css" media="all"/>
-	<link rel="stylesheet" href="src/css/style.css" media="all"/>
+	<link rel="stylesheet" href="../src/css/vendor.css" media="all"/>
+	<link rel="stylesheet" href="../src/css/style.css" media="all"/>
 </head>
 <body>
 <div class="container-fluid">

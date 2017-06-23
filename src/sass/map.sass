@@ -34,9 +34,10 @@
       circle
         fill: rgba(147, 0, 14, 0.5)
         transition: all .1s ease-in-out
+        transform-origin: center center
+        -moz-transform-origin: 50% 50%
         &:hover
           transform: scale(2)
-          transform-origin: center center
           transition: all .1s ease-in-out
           + line
             stroke-width: 2px
@@ -53,7 +54,6 @@
         &:last-of-type
           animation: bounce 1s ease-in-out infinite
           animation-delay: .5s
-          transform-origin: center center
   #map-overlay
     position: absolute
     left: 50%

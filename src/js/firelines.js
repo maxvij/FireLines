@@ -116,7 +116,7 @@ function updateData() {
         if (this.readyState === 4 && this.status === 200) {
             if(this.responseText !== 'UP-TO-DATE') {
                 data = JSON.parse(this.response);
-                if(data.length === 1) {
+                if(data.length === 1 || data.length === 2) {
                     var audio = new Audio('src/sound/brand.mp3');
                     audio.play();
                 }
@@ -135,7 +135,7 @@ function updateData() {
                 });
                 newCoordinates = newCoordinates.sort(function(a, b) { return b.id - a.id });
                 coordinates = coordinates.concat(newCoordinates);
-                updateGraph();
+                updateGraph(newCoordinates);
                 dataLoaded = true;
             }
         }
@@ -236,7 +236,7 @@ function selectProvince(province) {
 // Update graph every n seconds
 setInterval(function() {
     updateData()
-}, 1000);
+}, 2000);
 
 // SVG canvas options
 var options = {
@@ -254,9 +254,14 @@ function resetGraph() {
     overlay.clear();
 }
 
-function updateGraph() {
-    // Update Graph lines
-    var data = coordinates;
+function updateGraph(data) {
+    // If no new data is added, use existing data to update graph
+    if(data === undefined) {
+        // Update Graph lines
+        var data = coordinates;
+    }
+
+    // Set index to 0 before looping
     var index = 0;
     var prioRadius = 30;
     var i = coordinates.length;
@@ -267,16 +272,28 @@ function updateGraph() {
         var firstX = coordinates[i - 2].x;
         var firstY = coordinates[i - 2].y;
     }
+
+    // Calculate animation duration (so that the total duration is 2000 ms)
     var animDuration = (data.length < 10 ? 150 : 2000 / data.length);
+
+    // Sort data chronologically ASC before grabbing the last n reports
     data = data.sort(function(a, b) { return b.id - a.id });
     data = data.slice(0, maximumNumberOfReports);
+
+    // Then sort data chronologically DESC for graph
     data = data.sort(function(a, b) { return a.id - b.id });
+
+    // Filter on priority
     var priorityFilteredData = data.filter(function(a) {
         return parseInt(a.prio) >= parseInt(prioritySliderValues[0]) && parseInt(a.prio) <= parseInt(prioritySliderValues[1]) });
+
+    // Filter on provinces
     updateProvincesTags(priorityFilteredData);
     var priorityAndProvincesFilteredData = (selectedProvinceList.length !== 0 ? priorityFilteredData.filter(function(a) {
         return selectedProvinceList.indexOf(a.province) !== -1;
     }) : priorityFilteredData);
+
+    // Display filtered reports
     priorityAndProvincesFilteredData.map(location => {
         // Draw a circle at the end of the line
         overlay.circle(5)

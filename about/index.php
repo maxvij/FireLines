@@ -25,7 +25,7 @@
 						out in the middle of the night when you’re stuck in an elevator or when your frying pan catches
 						fire. The unfortunate thing however is that a lot of those situations can be easily prevented by
 						putting in a minimal amount of effort. That’s exactly why we made this installation and website:
-						to spread awareness of fire hazards and appreciation for firemen and their work.
+						to spread awareness of fire hazards and to increase appreciation for firemen and their work.
 					</p>
 					<h3>The installation</h3>
 					<p>To achieve this goal, we made an installation that visualizes the amount and location of the fire

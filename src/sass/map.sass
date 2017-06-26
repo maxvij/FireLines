@@ -117,9 +117,40 @@
         &:before
           color: $white
           padding-right: 5px
-
+@media (max-width: 1100px)
+  #map
+    #map-overlay, #map-svg, #map-svg svg, #map-svg + svg
+      width: 500px
+      height: 560px
 @media (max-width: 991px)
   #map
     position: relative
+    min-height: 750px
     height: auto
-    min-height: 800px
+    #map-overlay, #map-svg, #map-svg svg, #map-svg + svg
+      width: 600px
+      height: 675px
+@media (max-width: 700px)
+  #map
+    min-height: 600px
+    #map-overlay, #map-svg, #map-svg svg, #map-svg + svg
+      width: 500px
+      height: 560px
+@media (max-width: 540px)
+  #map
+    min-height: 550px
+    #map-overlay, #map-svg, #map-svg svg, #map-svg + svg
+      width: 400px
+      height: 450px
+@media (max-width: 420px)
+  #map
+    min-height: 500px
+    #map-overlay, #map-svg, #map-svg svg, #map-svg + svg
+      width: 330px
+      height: 371px
+@media (max-width: 360px)
+  #map
+    min-height: 400px
+    #map-overlay, #map-svg, #map-svg svg, #map-svg + svg
+      width: 280px
+      height: 315px

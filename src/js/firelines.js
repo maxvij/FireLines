@@ -299,6 +299,7 @@ var options = {
 };
 var vivus = new Vivus('map-svg', options);
 var SVGoverlay = SVG('map-overlay');
+SVGoverlay.attr("preserveAspectRatio", "xMinYMin meet").attr("viewBox", "0 0 600 400");
 var overlay = SVGoverlay.group();
 
 function resetGraph() {

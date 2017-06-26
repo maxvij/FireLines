@@ -1,0 +1,21 @@
+@import "includes"
+
+.button
+  height: 40px
+  border-radius: 20px
+  background: $accent-opaque
+  width: auto
+  display: inline-block
+  float: left
+  margin: 0 10px 10px 0
+  padding: 10px 15px
+  a
+    color: $white
+    line-height: 20px
+  &.selected, &.active
+    background: $accent-light
+  &:hover
+    +box-shadow(heavy)
+    cursor: pointer
+    transition: all .15s ease-in-out
+

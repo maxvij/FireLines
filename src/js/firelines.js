@@ -10,42 +10,12 @@ document.getElementById('number-of-reports').innerHTML = maximumNumberOfReports;
 // Get warning for report title
 function getWarningsForTitle(title) {
     var warningList = [
-        {
-            keyword: 'Gebouwbrand',
-            text: 'Houd afstand in verband met instortingsgevaar.'
-        },
-        {
-            keyword: 'Stank',
-            text: 'Pas op! Sluit uw deuren en ramen.'
-        },
-        {
-            keyword: 'Reanimatie',
-            text: 'Reanimatie, houdt de \'Hartstichting App\' in de gaten.'
-        },
-        {
-            keyword: 'Buitenbrand',
-            text: 'Pas op! Adem geen rook in, blijf uit de buurt van het vuur.'
-        },
-        {
-            keyword: 'Binnenbrand',
-            text: ''
-        },
-        {
-            keyword: 'Dier in problemen',
-            text: 'Haha, dom dier.'
-        },
-        {
-            keyword: 'Wateroverlast',
-            text: 'Neem je zwembroek mee!'
-        },
-        {
-            keyword: 'Gas',
-            text: 'Houd afstand en probeer niets in te ademen.'
-        },
-        {
-            keyword: 'Oefening',
-            text: 'Geen zorgen, niets aan de hand.'
-        },
+        {keyword: 'Woningbrand',
+        text: 'Testwarning'},
+        {keyword: 'Stank',
+        text: 'Pas op!'},
+        {keyword: 'Buitenbrand',
+            text: 'Pas op!'}
     ];
     var warningsForTitle = [];
     warningList.map(function(warning) {
@@ -201,7 +171,6 @@ var amountSliderValue = document.getElementById('amount-slider-value');
 var amountSlider = noUiSlider.create(amountSliderDiv, {
     start: [50],
     step: 10,
-    behaviour: "tap-drag",
     range: {
         min: [ 10 ],
         max: [ 200 ]
@@ -227,7 +196,6 @@ var prioritySliderValue = document.getElementById('priority-slider-value');
 var prioritySlider = noUiSlider.create(prioritySliderDiv, {
     start: [1, 3],
     step: 1,
-    behaviour: "tap-drag",
     connect: true,
     range: {
         'min': 1,
@@ -299,7 +267,6 @@ var options = {
 };
 var vivus = new Vivus('map-svg', options);
 var SVGoverlay = SVG('map-overlay');
-SVGoverlay.attr("preserveAspectRatio", "xMinYMin meet").attr("viewBox", "0 0 600 400");
 var overlay = SVGoverlay.group();
 
 function resetGraph() {
@@ -334,6 +301,7 @@ function updateGraph(data) {
 
     // Calculate animation duration (so that the total duration is 2000 ms)
     var animDuration = (data.length < 10 ? 150 : 2000 / data.length);
+    console.log(data);
     // Sort data chronologically ASC before grabbing the last n reports
     data = data.sort(function(a, b) { return b.id - a.id });
     data = data.slice(0, maximumNumberOfReports);
@@ -404,17 +372,4 @@ function updateList(data) {
     return element;
 });
     list.innerHTML = innerList;
-}
-
-var logoDiv = document.getElementsByClassName('logo');
-var numberOfClicks = 0;
-logoDiv[0].addEventListener('click', function() {
-    numberOfClicks++;
-    if(numberOfClicks > 5) {
-        easterEgg();
-    }
-});
-
-function easterEgg() {
-    document.location.href = 'https://www.dumpert.nl/embed/7153219/dce8872e/';
 }

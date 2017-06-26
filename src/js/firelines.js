@@ -10,12 +10,42 @@ document.getElementById('number-of-reports').innerHTML = maximumNumberOfReports;
 // Get warning for report title
 function getWarningsForTitle(title) {
     var warningList = [
-        {keyword: 'Woningbrand',
-        text: 'Testwarning'},
-        {keyword: 'Stank',
-        text: 'Pas op!'},
-        {keyword: 'Buitenbrand',
-            text: 'Pas op!'}
+        {
+            keyword: 'Gebouwbrand',
+            text: 'Houd afstand in verband met instortingsgevaar.'
+        },
+        {
+            keyword: 'Stank',
+            text: 'Pas op! Sluit uw deuren en ramen.'
+        },
+        {
+            keyword: 'Reanimatie',
+            text: 'Reanimatie, houdt de \'Hartstichting App\' in de gaten.'
+        },
+        {
+            keyword: 'Buitenbrand',
+            text: 'Pas op! Adem geen rook in, blijf uit de buurt van het vuur.'
+        },
+        {
+            keyword: 'Binnenbrand',
+            text: ''
+        },
+        {
+            keyword: 'Dier in problemen',
+            text: 'Haha, dom dier.'
+        },
+        {
+            keyword: 'Wateroverlast',
+            text: 'Neem je zwembroek mee!'
+        },
+        {
+            keyword: 'Gas',
+            text: 'Houd afstand en probeer niets in te ademen.'
+        },
+        {
+            keyword: 'Oefening',
+            text: 'Geen zorgen, niets aan de hand.'
+        },
     ];
     var warningsForTitle = [];
     warningList.map(function(warning) {

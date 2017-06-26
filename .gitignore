@@ -4,4 +4,5 @@ src/css/*
 !src/css/vendor.css
 !src/css/bootstrap-grid.min.css
 !src/css/ionicons.min.css
+!src/css/nouislider.min.css
 .DS_Store

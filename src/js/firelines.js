@@ -201,6 +201,7 @@ var amountSliderValue = document.getElementById('amount-slider-value');
 var amountSlider = noUiSlider.create(amountSliderDiv, {
     start: [50],
     step: 10,
+    behaviour: "tap-drag",
     range: {
         min: [ 10 ],
         max: [ 200 ]
@@ -226,6 +227,7 @@ var prioritySliderValue = document.getElementById('priority-slider-value');
 var prioritySlider = noUiSlider.create(prioritySliderDiv, {
     start: [1, 3],
     step: 1,
+    behaviour: "tap-drag",
     connect: true,
     range: {
         'min': 1,

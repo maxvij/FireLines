@@ -405,3 +405,16 @@ function updateList(data) {
 });
     list.innerHTML = innerList;
 }
+
+var logoDiv = document.getElementsByClassName('logo');
+var numberOfClicks = 0;
+logoDiv[0].addEventListener('click', function() {
+    numberOfClicks++;
+    if(numberOfClicks > 5) {
+        easterEgg();
+    }
+});
+
+function easterEgg() {
+    document.location.href = 'https://www.dumpert.nl/embed/7153219/dce8872e/';
+}

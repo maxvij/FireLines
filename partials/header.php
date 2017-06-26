@@ -25,7 +25,7 @@
             </nav>
         </div>
         <div class="col-12 col-sm-2 col-click-through">
-            <div class="logo col-click-through">
+            <div class="logo">
                 <h1>FireLines</h1>
             </div>
         </div>

@@ -14,6 +14,7 @@
   left: 0
   z-index: 999
   background: white
+  +transition(all)
   +box-shadow(light)
   .logo
     background: url('/src/img/logo.png')
@@ -22,6 +23,7 @@
     width: 100%
     height: 80px
     margin: 0
+    pointer-events: none
     display: inline-block
     float: left
     background-position: center center
@@ -80,3 +82,92 @@
             height: 60px
             line-height: 30px
             padding: 15px
+@media (min-width: 769px)
+  .header-wrapper
+    nav
+      .menu-trigger
+        opacity: 0
+        pointer-events: none
+
+@media (max-width: 768px)
+  .col-click-through
+    pointer-events: none !important
+  .header-wrapper
+    z-index: 999
+    +transition(all)
+    nav
+      width: 100%
+      height: 100vh
+      position: fixed
+      .menu-trigger
+        position: fixed
+        z-index: 999
+        opacity: 1
+        pointer-events: auto
+        height: 15px
+        width: 20px
+        display: inline-block
+        top: 22.5px
+        left: 15px
+        &:before, &:after, span
+          position: absolute
+          left: 0
+          content: ""
+          width: 20px
+          height: 2px
+          background: $accent
+          transform-origin: center center
+          +transition(all)
+        &:before
+          top: 0px
+        &:after
+          bottom: 0px
+        span
+          top: 50%
+          transform: translateY(-50%)
+        &.open
+          span
+            opacity: 0
+          &:before
+            transform: rotate(45deg)
+            top: 50%
+          &:after
+            bottom: 5px
+            transform: rotate(-45deg)
+      ul
+        width: 100%
+        top: 60px
+        left: 0
+        position: fixed
+        z-index: 998
+        height: 100vh
+        background: $accent-opaque-dark
+        padding-top: 40px
+        pointer-events: none
+        transform: scaleY(0) scaleX(0)
+        transform-origin: top left
+        border-bottom-right-radius: 800px
+        opacity: 0
+        +transition(all)
+        &.show
+          opacity: 1
+          border-radius: 0
+          pointer-events: auto
+          transform: scaleY(1) scaleX(1)
+        li
+          width: 100%
+          float: left
+          display: inline-block
+          height: 60px
+          text-align: center
+          border: none !important
+          a
+            float: none
+            font-size: 18px
+            text-align: center
+            color: $white
+            font-weight: 300
+            border-bottom: none !important
+          &.active
+            a
+              font-weight: 700

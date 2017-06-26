@@ -8,9 +8,10 @@
 
 <div class="header-wrapper">
     <div class="row">
-        <div class="col-6 col-md-5">
+        <div class="col-12 col-sm-5">
             <nav>
-                <ul>
+				<div class="menu-trigger"><span></span></div>
+                <ul id="menu-list">
                     <li <?php if(!checkActivePage('about/index.php') && !checkActivePage('safety/index.php')) { print $activeClass; } ?>>
                         <a href="/">Map</a>
                     </li>
@@ -23,8 +24,8 @@
                 </ul>
             </nav>
         </div>
-        <div class="col-6 col-md-2">
-            <div class="logo">
+        <div class="col-12 col-sm-2 col-click-through">
+            <div class="logo col-click-through">
                 <h1>FireLines</h1>
             </div>
         </div>

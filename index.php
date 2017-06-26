@@ -77,5 +77,6 @@
 	</div>
 </div>
 <script type="text/javascript" src="src/js/firelines.js"></script>
+<script type="text/javascript" src="src/js/nav.js"></script>
 </body>
 </html>

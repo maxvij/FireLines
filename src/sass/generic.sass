@@ -11,7 +11,10 @@ body, *
 body
   padding-top: 80px
   margin: 0
+  +transition(all)
   background: $background-color
+  [class*='col']
+    +transition(all)
 
 a, a:active, a:link, a:visited, a:hover
   text-decoration: none

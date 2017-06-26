@@ -333,7 +333,6 @@ function updateGraph(data) {
 
     // Calculate animation duration (so that the total duration is 2000 ms)
     var animDuration = (data.length < 10 ? 150 : 2000 / data.length);
-    console.log(data);
     // Sort data chronologically ASC before grabbing the last n reports
     data = data.sort(function(a, b) { return b.id - a.id });
     data = data.slice(0, maximumNumberOfReports);

@@ -88,3 +88,20 @@
         background-image: url('../img/max.png')
       &.karsten
         background-image: url('../img/karsten.jpeg')
+
+@media (max-width: 768px)
+  .container-fluid + .container
+    margin-top: 0
+    margin-bottom: 0
+  .panel
+    padding: 0
+    .heading
+      h2
+        font-size: 18px
+      &:after
+        width: calc(100% + 30px)
+        margin: 20px -15px 0 -15px
+    .content
+      p.lead
+        font-size: 16px
+        line-height: 22px

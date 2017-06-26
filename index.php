@@ -5,6 +5,7 @@
 	<title>FireLines | Real-time fire reports in the Netherlands</title>
 	<link rel="stylesheet" href="src/css/vendor.css" media="all"/>
 	<link rel="stylesheet" href="src/css/style.css" media="all"/>
+	<?php include('partials/metadata.php'); ?>
 	<script type="text/javascript" src="src/js/vivus.min.js"></script>
 	<script type="text/javascript" src="src/js/svg.min.js"></script>
 	<script type="text/javascript" src="src/js/nouislider.min.js"></script>

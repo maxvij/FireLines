@@ -1,3 +1,8 @@
+<meta charset="UTF-8">
+<meta name="description" content="Real-time map of the Netherlands displaying fire department calls.">
+<meta name="keywords" content="FireLines, fire, lines, real-time, map, Netherlands, p2000, Nederland">
+<meta name="author" content="Max van IJsselmuiden">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="apple-touch-icon" sizes="57x57" href="../src/img/favicon/apple-icon-57x57.png">
 <link rel="apple-touch-icon" sizes="60x60" href="../src/img/favicon/apple-icon-60x60.png">
 <link rel="apple-touch-icon" sizes="72x72" href="../src/img/favicon/apple-icon-72x72.png">

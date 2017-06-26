@@ -19,10 +19,9 @@
 				</div>
 				<div class="content">
 					<p>Now you've seen the artwork, it is time to do something with it! Here you can find which steps to
-						undertake in order to make your home fire safe. </p>
-					<p>Select one of the categories to see what you can do to prevent a fire from damaging your
-						property. </p>
-					<ul>
+						undertake in order to make your home fire safe.<br>Select one of the categories below to see what you can do to prevent a fire from damaging your
+                        property. </p>
+					<ul  id="no-margin">
 						<li class="button active"><a href="#tab1" data-toggle="tab">Arson</a></li>
 						<li class="button"><a href="#tab2" data-toggle="tab">Defect Devices</a></li>
 						<li class="button"><a href="#tab3" data-toggle="tab">Incentive Work</a></li>
@@ -77,7 +76,7 @@
 								</div>
 								<div class="col-7 col-sm-7 col-md-10">
 									<p><span>Test and maintain all smoke alarms</span>
-										Test your smoke detectors regularly! This can be done in multiple ways:
+                                        Test your smoke detectors regularly! This can be done in multiple ways:</p>
 									<ul>
 										<li>Use the test button which is present on every smoke detector.</li>
 										<li>Use aerosol spray to test the smoke detector’s activity.</li>
@@ -85,8 +84,7 @@
 											underneath.
 										</li>
 									</ul>
-									More information can be found <a
-											href="//www.wikihow.com/Test-a-Smoke-Detector">here</a>.</p>
+									<p>More information can be found <a href="//www.wikihow.com/Test-a-Smoke-Detector">here</a>.</p>
 								</div>
 							</div>
 							<div class="row">

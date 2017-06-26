@@ -11,14 +11,14 @@
         <div class="col-6 col-md-5">
             <nav>
                 <ul>
-                    <li <?php if(!checkActivePage('about/index.php') && !checkActivePage('contact/index.php')) { print $activeClass; } ?>>
+                    <li <?php if(!checkActivePage('about/index.php') && !checkActivePage('safety/index.php')) { print $activeClass; } ?>>
                         <a href="/">Map</a>
                     </li>
                     <li <?php if(checkActivePage('about/index.php')) { print $activeClass; } ?>>
                         <a href="/about">About</a>
                     </li>
-                    <li <?php if(checkActivePage('contact/index.php')) { print $activeClass; } ?>>
-                        <a href="/contact">Contact</a>
+                    <li <?php if(checkActivePage('safety/index.php')) { print $activeClass; } ?>>
+                        <a href="/safety">Safety</a>
                     </li>
                 </ul>
             </nav>

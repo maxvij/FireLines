@@ -43,16 +43,16 @@ function highlightCircle(id) {
     var circle = document.getElementById('circle-' + id);
     var lastCircleId = coordinates[0].id;
     var lastCircle = document.getElementById('circle-' + lastCircleId);
-    lastCircle.setAttribute('style', 'animation: none');
-    circle.setAttribute('style', 'transform: scale(2); transform-origin: center center; animation: bounce 1s ease-in-out infinite');
+    if(lastCircle !== undefined) { lastCircle.setAttribute('style', 'animation: none'); }
+    if(circle !== undefined) { circle.setAttribute('style', 'transform: scale(2); transform-origin: center center; animation: bounce 1s ease-in-out infinite'); }
 }
 
 function unhighlightCircle(id) {
     var circle = document.getElementById('circle-' + id);
     var lastCircleId = coordinates[0].id;
     var lastCircle = document.getElementById('circle-' + lastCircleId);
-    lastCircle.setAttribute('style', '');
-    circle.setAttribute('style', 'transform: scale(1); transform-origin: center center;');
+    if(lastCircle !== undefined) { lastCircle.setAttribute('style', ''); }
+    if (circle !== undefined) { circle.setAttribute('style', 'transform: scale(1); transform-origin: center center;'); }
 }
 
 // Tooltip functionality
@@ -349,7 +349,11 @@ function updateGraph(data) {
     firstY = location.y;
     index++;
 })
-    updateList(priorityAndProvincesFilteredData);
+    if(priorityAndProvincesFilteredData.length > 1) {
+        updateList(priorityAndProvincesFilteredData);
+    } else {
+        updateList(coordinates);
+    }
 }
 
 function updateList(data) {

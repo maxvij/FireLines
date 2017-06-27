@@ -264,6 +264,7 @@ function initDateFilter() {
 // Filter provinces
 var provincesDiv = document.getElementById('provinces');
 var provinceList = [];
+var officialProvinces = ['Friesland', 'Drenthe', 'Groningen', 'Overijssel', 'Noord-Holland', 'Zuid-Holland', 'Flevoland', 'Utrecht', 'Limburg', 'Noord-Brabant', 'Gelderland', 'Zeeland'];
 var availableProvinces = [];
 var provincesInnerHtml = [];
 var selectedProvinceList = [];
@@ -271,7 +272,7 @@ var selectedProvinceList = [];
 function updateProvincesTags(coordinates) {
     provincesInnerHtml = [];
     availableProvinces = coordinates.map(function(coordinate) {
-        if(provinceList.indexOf(coordinate.province) === -1 && !isNumber(coordinate.province)) {
+        if(provinceList.indexOf(coordinate.province) === -1 && !isNumber(coordinate.province) && officialProvinces.indexOf(coordinate.province) !== -1) {
             provinceList.push(coordinate.province);
         }
     });

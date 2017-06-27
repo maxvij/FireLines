@@ -43,16 +43,16 @@ function highlightCircle(id) {
     var circle = document.getElementById('circle-' + id);
     var lastCircleId = coordinates[0].id;
     var lastCircle = document.getElementById('circle-' + lastCircleId);
-    if(lastCircle !== undefined) { lastCircle.setAttribute('style', 'animation: none'); }
-    if(circle !== undefined) { circle.setAttribute('style', 'transform: scale(2); transform-origin: center center; animation: bounce 1s ease-in-out infinite'); }
+    if(lastCircle !== undefined && lastCircle !== null) { lastCircle.setAttribute('style', 'animation: none'); }
+    if(circle !== undefined && circle !== null) { circle.setAttribute('style', 'transform: scale(2); transform-origin: center center; animation: bounce 1s ease-in-out infinite'); }
 }
 
 function unhighlightCircle(id) {
     var circle = document.getElementById('circle-' + id);
     var lastCircleId = coordinates[0].id;
     var lastCircle = document.getElementById('circle-' + lastCircleId);
-    if(lastCircle !== undefined) { lastCircle.setAttribute('style', ''); }
-    if (circle !== undefined) { circle.setAttribute('style', 'transform: scale(1); transform-origin: center center;'); }
+    if(lastCircle !== undefined && lastCircle !== null) { lastCircle.setAttribute('style', ''); }
+    if (circle !== undefined && circle !== null) { circle.setAttribute('style', 'transform: scale(1); transform-origin: center center;'); }
 }
 
 // Tooltip functionality
@@ -267,6 +267,7 @@ var options = {
 };
 var vivus = new Vivus('map-svg', options);
 var SVGoverlay = SVG('map-overlay');
+SVGoverlay.attr("preserveAspectRatio", "xMinYMin meet").attr("viewBox", "0 0 600 400");
 var overlay = SVGoverlay.group();
 
 function resetGraph() {
@@ -301,7 +302,6 @@ function updateGraph(data) {
 
     // Calculate animation duration (so that the total duration is 2000 ms)
     var animDuration = (data.length < 10 ? 150 : 2000 / data.length);
-    console.log(data);
     // Sort data chronologically ASC before grabbing the last n reports
     data = data.sort(function(a, b) { return b.id - a.id });
     data = data.slice(0, maximumNumberOfReports);
@@ -372,4 +372,17 @@ function updateList(data) {
     return element;
 });
     list.innerHTML = innerList;
+}
+
+var logoDiv = document.getElementsByClassName('logo');
+var numberOfClicks = 0;
+logoDiv[0].addEventListener('click', function() {
+    numberOfClicks++;
+    if(numberOfClicks > 5) {
+        easterEgg();
+    }
+});
+
+function easterEgg() {
+    document.location.href = 'https://www.dumpert.nl/embed/7153219/dce8872e/';
 }

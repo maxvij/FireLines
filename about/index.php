@@ -4,8 +4,7 @@
 	<meta charset="UTF-8">
 	<title>FireLines | About</title>
     <?php include('../partials/metadata.php'); ?>
-	<link rel="stylesheet" href="../src/css/vendor.css" media="all"/>
-	<link rel="stylesheet" href="../src/css/style.css" media="all"/>
+	<link rel="stylesheet" href="../src/css/style.min.css" media="all"/>
 </head>
 <body>
 <div class="container-fluid">
@@ -134,6 +133,6 @@
 		</div>
 	</div>
 </div>
-<script type="text/javascript" src="../src/js/nav.js"></script>
+<script type="text/javascript" src="../src/js/nav.min.js"></script>
 </body>
 </html>

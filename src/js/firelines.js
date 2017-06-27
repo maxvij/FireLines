@@ -413,7 +413,7 @@ function updateGraph(data) {
     document.getElementById('number-of-reports').innerHTML = priorityAndProvincesFilteredData.length;
 
     // Display filtered reports
-    priorityAndProvincesFilteredData.map(location => {
+    priorityAndProvincesFilteredData.map(function(location) {
         // Draw a circle at the end of the line
         overlay.circle(5)
         .attr({'opacity': 0})
@@ -454,7 +454,7 @@ function updateList(data) {
     var list = document.getElementById('latest-reports');
     var innerList = '';
     var element = '';
-    data.map(location => {
+    data.map(function(location) {
         var prioClass = 'label prio-' + location.prio;
     element = '<li id=\"list-' + location.id + '\" onmouseenter=\"javascript: highlightCircle(' + location.id + ')\" onmouseleave=\"javascript: unhighlightCircle(' + location.id + ')\">' + '<div class=\'' + prioClass + '\'></div>' +
         '<p class=\'name\' title=\'' + location.title + '\'>' + location.title + '</p>' +

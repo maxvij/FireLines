@@ -24,6 +24,34 @@
 								<h2>Filter options</h2>
 								<div class="row">
 									<div class="col-8">
+										<label>Report date</label>
+									</div>
+									<div class="col-4">
+										<label class="value" id="date-slider-value">1-3</label>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-12">
+										<div id="date-input" class="radio-pill">
+											<div class="pill">
+												<input type="radio" value="1" name="date" id="date-1" />
+												<label for="date-1">All time</label>
+											</div>
+
+											<div class="pill">
+												<input type="radio" value="2" name="date" id="date-2" />
+												<label for="date-2">Yesterday</label>
+											</div>
+
+											<div class="pill">
+												<input type="radio" value="3" name="date" id="date-3" checked />
+												<label for="date-3">Today</label>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-8">
 										<label>Amount of reports</label>
 									</div>
 									<div class="col-4">
@@ -77,6 +105,7 @@
 	</div>
 </div>
 <script type="text/javascript" src="src/js/nav.js"></script>
+<script type="text/javascript" src="src/js/date.js"></script>
 <script type="text/javascript" src="src/js/firelines.js"></script>
 </body>
 </html>

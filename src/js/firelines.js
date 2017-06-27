@@ -173,6 +173,7 @@ function updateData() {
                     rObj.prio = obj.prio;
                     rObj.province = obj.Province;
                     rObj.time = obj.Pubdate.substr(obj.Pubdate.length - 8);
+                    rObj.date = obj.Pubdate;
                     lastid = obj.ID;
                     return rObj;
                 });
@@ -186,6 +187,7 @@ function updateData() {
     xmlhttp.open("GET", "get_coordinates.php?lastid="+lastid);
     xmlhttp.send();
 }
+
 // Change amount of priorities shown
 var amountSliderDiv = document.getElementById('amount-slider');
 var amountSliderValue = document.getElementById('amount-slider-value');
@@ -241,6 +243,23 @@ prioritySlider.on('update', function(){
         resetGraph();
     }
 });
+
+// Date filtering
+initDateFilter();
+var activeDateValue;
+function initDateFilter() {
+    var dateInputs = document.getElementsByClassName('pill');
+    for(var i = 0; i < dateInputs.length; i++) {
+        if(dateInputs[i].firstElementChild.checked === true) {
+            activeDateValue = i + 1;
+        }
+        dateInputs[i].addEventListener('click', function(e) {
+            activeDateValue = e.target.value;
+            resetGraph();
+            updateGraph();
+        });
+    }
+}
 
 // Filter provinces
 var provincesDiv = document.getElementById('provinces');
@@ -326,13 +345,29 @@ function updateGraph(data) {
     var animDuration = (data.length < 10 ? 150 : 2000 / data.length);
     // Sort data chronologically ASC before grabbing the last n reports
     data = data.sort(function(a, b) { return b.id - a.id });
-    data = data.slice(0, maximumNumberOfReports);
 
-    // Then sort data chronologically DESC for graph
-    data = data.sort(function(a, b) { return a.id - b.id });
+    // Filter on date
+    var activeDateTime = Date.today();
+    var dateFilteredData = data;
+    if(activeDateValue === '2') {
+        activeDateTime = (1).days().ago();
+    } else if(activeDateValue === '3') {
+        activeDateTime = Date.today();
+    }
+
+    dateFilteredData = dateFilteredData.filter(function(a) {
+        var itemDate = new Date(a.date);
+        if(activeDateValue === '2') {
+            return itemDate > (2).days().ago() && itemDate < (1).day().ago();
+        } else if (activeDateValue === '3') {
+            return itemDate > (1).day().ago();
+        } else {
+            return true;
+        }
+    });
 
     // Filter on priority
-    var priorityFilteredData = data.filter(function(a) {
+    var priorityFilteredData = dateFilteredData.filter(function(a) {
         return parseInt(a.prio) >= parseInt(prioritySliderValues[0]) && parseInt(a.prio) <= parseInt(prioritySliderValues[1]) });
 
     // Filter on provinces
@@ -340,6 +375,12 @@ function updateGraph(data) {
     var priorityAndProvincesFilteredData = (selectedProvinceList.length !== 0 ? priorityFilteredData.filter(function(a) {
         return selectedProvinceList.indexOf(a.province) !== -1;
     }) : priorityFilteredData);
+
+    priorityAndProvincesFilteredData = priorityAndProvincesFilteredData.slice(0, maximumNumberOfReports);
+    // Then sort data chronologically DESC for graph
+    priorityAndProvincesFilteredData = priorityAndProvincesFilteredData.sort(function(a, b) { return a.id - b.id });
+
+    document.getElementById('number-of-reports').innerHTML = priorityAndProvincesFilteredData.length;
 
     // Display filtered reports
     priorityAndProvincesFilteredData.map(location => {
@@ -371,7 +412,7 @@ function updateGraph(data) {
     firstY = location.y;
     index++;
 })
-    if(priorityAndProvincesFilteredData.length > 1) {
+    if(priorityAndProvincesFilteredData.length === 0 || priorityAndProvincesFilteredData.length > 1) {
         updateList(priorityAndProvincesFilteredData);
     } else {
         updateList(coordinates);

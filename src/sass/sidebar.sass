@@ -211,6 +211,46 @@
     &.noUi-handle-lower, &.noUi-handle-upper
       left: -10px
 
+/*
+ * Radio pill
+ */
+#sidebar
+  .radio-pill
+    margin-bottom: 30px
+    display: inline-block
+    float: left
+    width: 100%
+    .pill
+      width: auto
+      display: inline-block
+      float: left
+      height: 40px
+      line-height: 40px
+      background: $white
+      cursor: pointer
+      &:first-of-type
+        border-top-left-radius: 20px
+        border-bottom-left-radius: 20px
+        label
+          border-top-left-radius: 20px
+          border-bottom-left-radius: 20px
+      &:last-of-type
+        border-top-right-radius: 20px
+        border-bottom-right-radius: 20px
+        label
+          border-top-right-radius: 20px
+          border-bottom-right-radius: 20px
+      label
+        height: 40px
+        line-height: 20px
+        padding: 10px 15px
+        cursor: pointer
+      input:checked
+        + label
+          background: $accent
+          color: $white
+      input
+        display: none
 
 @media (max-width: 991px)
   #sidebar

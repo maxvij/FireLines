@@ -23,11 +23,8 @@
 							<div class="col-12">
 								<h2>Filter options</h2>
 								<div class="row">
-									<div class="col-8">
+									<div class="col-12">
 										<label>Report date</label>
-									</div>
-									<div class="col-4">
-										<label class="value" id="date-slider-value">1-3</label>
 									</div>
 								</div>
 								<div class="row">
@@ -52,19 +49,6 @@
 								</div>
 								<div class="row">
 									<div class="col-8">
-										<label>Amount of reports</label>
-									</div>
-									<div class="col-4">
-										<label class="value" id="amount-slider-value"></label>
-									</div>
-								</div>
-								<div class="row">
-									<div class="col-12">
-										<div id="amount-slider"></div>
-									</div>
-								</div>
-								<div class="row">
-									<div class="col-8">
 										<label>Report priority</label>
 									</div>
 									<div class="col-4">
@@ -78,13 +62,39 @@
 								</div>
 							</div>
 							<div class="col-12">
-								<label>Provinces</label>
-								<div id="provinces"></div>
+								<div class="row">
+									<div class="col-4">
+										<label>Provinces</label>
+									</div>
+									<div class="col-8">
+										<label class="value ion-chevron-down" id="provinces-toggle">Show provinces</label>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-12">
+										<div id="provinces"></div>
+									</div>
+								</div>
+							</div>
+							<div class="col-12">
+								<div class="row">
+									<div class="col-8">
+										<label>Amount of reports</label>
+									</div>
+									<div class="col-4">
+										<label class="value" id="amount-slider-value"></label>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-12">
+										<div id="amount-slider"></div>
+									</div>
+								</div>
 							</div>
 						</div>
 					</div>
 					<div class="col-12">
-						<h2>Latest reports</h2>
+						<h2 id="latest-reports-title">Latest reports of today</h2>
 						<h4>Displaying <span id="number-of-reports"></span> reports</h4>
 						<div class="latest-reports-wrapper">
 							<ul class="list" id="latest-reports">

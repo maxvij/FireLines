@@ -48,6 +48,23 @@ function getWarningsForTitle(title) {
     return warningsForTitle;
 }
 
+document.getElementById('provinces-toggle').addEventListener('click', function(e) {
+    var provincesDiv = document.getElementById('provinces');
+    if(e.target.classList.contains('open')) {
+        e.target.setAttribute('class', 'value ion-chevron-down');
+        e.target.innerHTML = 'Show provinces';
+        provincesDiv.setAttribute('class', '');
+    } else {
+        e.target.setAttribute('class', 'value ion-chevron-down open');
+        e.target.innerHTML = 'Hide provinces';
+        provincesDiv.setAttribute('class', 'show');
+    }
+});
+
+function toggleProvincesList(e) {
+
+}
+
 // Highlight list item
 function highlightListItem(id) {
     var listItem = document.getElementById('list-' + id);
@@ -255,6 +272,15 @@ function initDateFilter() {
         }
         dateInputs[i].addEventListener('click', function(e) {
             activeDateValue = e.target.value;
+            var title;
+            if(activeDateValue === '1') {
+                title = 'Latest reports of all time';
+            } else if(activeDateValue === '2') {
+                title = 'Reports of yesterday';
+            } else {
+                title = 'Latest repots of today';
+            }
+            document.getElementById('latest-reports-title').innerHTML = title;
             resetGraph();
             updateGraph();
         });
@@ -413,10 +439,10 @@ function updateGraph(data) {
     firstY = location.y;
     index++;
 })
-    if(priorityAndProvincesFilteredData.length === 0 || priorityAndProvincesFilteredData.length > 1) {
-        updateList(priorityAndProvincesFilteredData);
-    } else {
+    if(priorityAndProvincesFilteredData.length === 1) {
         updateList(coordinates);
+    } else {
+        updateList(priorityAndProvincesFilteredData);
     }
 }
 

@@ -128,8 +128,27 @@
  *  Filter options
  */
 #sidebar
+  #provinces-toggle
+    &:before
+      float: right
+      padding-left: 5px
+      +transition(all)
+    &.open
+      &:before
+        padding-left: 0
+        padding-right: 5px
+        transform-origin: center center
+        transform: rotate(180deg)
   #provinces
-    margin-top: 15px
+    margin: 15px 0
+    opacity: 0
+    height: 0px
+    display: inline-block
+    width: 100%
+    float: left
+    &.show
+      opacity: 1
+      height: auto
   .province-tag
     height: 40px
     border-radius: 20px

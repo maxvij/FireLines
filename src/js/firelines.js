@@ -95,13 +95,16 @@ function unhighlightCircle(id) {
 }
 
 // Tooltip functionality
-function showTooltip(id, title, prio) {
+function showTooltip(id, title, prio, date) {
     highlightListItem(id);
     tooltip.setAttribute('class', 'show');
+    var readableDate = Date.parse(date);
+    readableDate = readableDate.toString('d MMM yyyy HH:mm');
     var warning = getWarningsForTitle(title).length > 0 ? '<p class=\"warning ion-android-warning\">' + getWarningsForTitle(title).join('<br />') + '</p>' : '';
-    tooltip.innerHTML = '<div class=\"tooltip-inner prio-' + prio + '\"><p class=\"label prio-' + prio + '\"</p><p class=\"title\">' +
-        title + '</p>' +
-        warning + '</div>';
+    tooltip.innerHTML = '<div class=\"tooltip-inner prio-' + prio + '\"><p class=\"label prio-' + prio + '\"</p>'
+        + '<p class=\"date\">' + readableDate + '</p>'
+        + '<p class=\"title\">' + title + '</p>'
+        + warning + '</div>';
 }
 
 function hideTooltip() {
@@ -428,7 +431,7 @@ function updateGraph(data) {
         .attr({'id': 'circle-' + location.id});
 
     circle.node.addEventListener('mouseout', function() { hideTooltip() });
-    circle.node.addEventListener('mouseover', function() { showTooltip(location.id, location.title, location.prio)});
+    circle.node.addEventListener('mouseover', function() { showTooltip(location.id, location.title, location.prio, location.date)});
 
     // And a line from previous circle to new circle
     overlay.line(firstX, firstY, location.x, location.y)

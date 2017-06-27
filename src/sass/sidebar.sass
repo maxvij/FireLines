@@ -6,12 +6,18 @@
 #sidebar
   background: $sidebar-background-color
   height: calc(100vh - 80px)
+  overflow-y: auto
   display: inline-block
   float: left
   width: calc(100% + 30px)
   margin: 0 -15px
   padding: 15px 30px
   border-right: 1px solid $border-color
+  .sidebar-inner
+    height: auto
+    width: 100%
+    display: inline-block
+    float: left
   h2
     font-weight: 300
     margin: 15px 0
@@ -108,7 +114,7 @@
     padding: 0 30px
     display: inline-block
     float: left
-    height: 300px
+    height: 600px
     overflow: auto
   label
     text-transform: uppercase
@@ -270,6 +276,12 @@
           color: $white
       input
         display: none
+        cursor: pointer
+  .latest-reports-wrapper
+    display: inline-block
+    float: left
+    border-right: 1px solid $border-color
+    background: $sidebar-background-color
 
 @media (max-width: 991px)
   #sidebar
@@ -287,7 +299,7 @@
       &.noUi-handle-lower, &.noUi-handle-upper
         left: -7.5px
     .latest-reports-wrapper
-      height: 150px
+      height: 300px
       width: calc(100% + 30px)
       margin: 0 -15px
       padding: 0 15px

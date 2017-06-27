@@ -66,7 +66,7 @@ function highlightCircle(id) {
     var lastCircleId = coordinates[0].id;
     var lastCircle = document.getElementById('circle-' + lastCircleId);
     if(lastCircle !== undefined && lastCircle !== null) { lastCircle.setAttribute('style', 'animation: none'); }
-    if(circle !== undefined && circle !== null) { circle.setAttribute('style', 'transform: scale(2); transform-origin: center center; animation: bounce 1s ease-in-out infinite'); }
+    if(circle !== undefined && circle !== null) { circle.setAttribute('style', 'transform: scale(2); transform-origin: center center; animation: bounce 1s ease-in-out infinite; -moz-animation: none;'); }
 }
 
 function unhighlightCircle(id) {

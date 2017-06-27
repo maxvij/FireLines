@@ -38,6 +38,8 @@
         -moz-transform-origin: 50% 50%
         &:hover
           transform: scale(2)
+          -moz-animation: blink 1s ease-in-out infinite
+          -moz-transform: none
           transition: all .1s ease-in-out
           + line
             stroke-width: 2px
@@ -54,6 +56,7 @@
         &:last-of-type
           animation: bounce 1s ease-in-out infinite
           animation-delay: .5s
+          -moz-animation: blink 1s ease-in-out infinite
   #map-overlay
     position: absolute
     left: 50%

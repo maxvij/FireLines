@@ -3,6 +3,7 @@
 <head>
 	<meta charset="UTF-8">
 	<title>FireLines | SAFETY</title>
+    <?php include('../partials/metadata.php'); ?>
 	<link rel="stylesheet" href="../src/css/vendor.css" media="all"/>
 	<link rel="stylesheet" href="../src/css/style.css" media="all"/>
 </head>
@@ -519,6 +520,7 @@
 		</div>
 	</div>
 </div>
+<script type="text/javascript" src="../src/js/nav.js"></script>
 <script type="text/javascript" src="../src/js/tabs.js"></script>
 </body>
 </html>

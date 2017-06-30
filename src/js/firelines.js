@@ -410,10 +410,14 @@ function updateGraph(data) {
     // Then sort data chronologically DESC for graph
     priorityAndProvincesFilteredData = priorityAndProvincesFilteredData.sort(function(a, b) { return a.id - b.id });
 
-    document.getElementById('number-of-reports').innerHTML = priorityAndProvincesFilteredData.length;
+    var testReportsFilteredData = priorityAndProvincesFilteredData.filter(function(a) {
+        return a.title.toLowerCase().indexOf('test melding') === -1;
+    });
+
+    document.getElementById('number-of-reports').innerHTML = testReportsFilteredData.length;
 
     // Display filtered reports
-    priorityAndProvincesFilteredData.map(function(location) {
+    testReportsFilteredData.map(function(location) {
         // Draw a circle at the end of the line
         overlay.circle(5)
         .attr({'opacity': 0})

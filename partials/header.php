@@ -12,7 +12,7 @@ $activeClass = 'class="active"';
 			<nav>
 				<div class="menu-trigger"><span></span></div>
 				<ul id="menu-list">
-					<li <?php if(!checkActivePage('about/index.php') && !checkActivePage('safety/index.php')) { print $activeClass; } ?>>
+					<li <?php if(!checkActivePage('about/index.php') && !checkActivePage('safety/index.php') && !checkActivePage('ar-app/index.php')) { print $activeClass; } ?>>
 						<a href="/">Map</a>
 					</li>
 					<li <?php if(checkActivePage('about/index.php')) { print $activeClass; } ?>>
@@ -20,6 +20,9 @@ $activeClass = 'class="active"';
 					</li>
 					<li <?php if(checkActivePage('safety/index.php')) { print $activeClass; } ?>>
 						<a href="/safety">Safety</a>
+					</li>
+					<li <?php if(checkActivePage('ar-app/index.php')) { print $activeClass; } ?>>
+						<a href="/ar-app">OUR APP</a>
 					</li>
 				</ul>
 			</nav>

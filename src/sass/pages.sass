@@ -33,12 +33,18 @@
       font-weight: 300
   .content
     padding: 0 15px
+    margin-bottom: 30px
     width: 100%
     display: inline-block
     float: left
     &.contact
       [class*='col']
         text-align: center
+    img
+      width: 100%
+      height: auto
+      display: inline-block
+      float: left
     p
       padding: 0 0 15px 0
       font-size: 16px
@@ -88,6 +94,22 @@
         background-image: url('../img/max.png')
       &.karsten
         background-image: url('../img/karsten.jpeg')
+  a
+    &.button-large
+      height: 50px
+      width: auto
+      display: inline-block
+      padding: 15px
+      line-height: 20px
+      background: $accent
+      color: $white
+      &:hover
+        background: $accent-light
+        color: $white
+      &:focus
+        outline: none
+  .text-center
+    text-align: center
 
 @media (max-width: 768px)
   .container-fluid + .container
@@ -105,3 +127,5 @@
       p.lead
         font-size: 16px
         line-height: 22px
+      img
+        margin-bottom: 30px
